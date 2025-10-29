@@ -61,8 +61,23 @@
 
     .card{border:1px solid var(--border);border-radius:16px;padding:18px;background:#fff;box-shadow:var(--shadow)}
     footer{border-top:1px solid var(--border);padding:28px 0 40px;color:var(--muted);text-align:center}
-    [id] { scroll-margin-top: 100px; }
+    /* --- Mobile polish & overflow safety --- */
+    html, body { max-width: 100%; overflow-x: hidden; }
+    img, video { max-width: 100%; height: auto; display: block; }
+    :where(h1,h2,h3,p,li,a){ word-break: normal; overflow-wrap: break-word; hyphens: auto; }
+    .navlinks{ flex-wrap: wrap; }
+    .cta{ white-space: normal; }
+    [id]{ scroll-margin-top: 88px; }
 
+    @media (max-width: 640px){
+      .nav{ padding: 12px 16px; }
+      .navlinks{ gap: .5rem; }
+      .navlinks a{ padding: 6px 8px; }
+      .container{ padding: 0 16px; }
+      .hero{ padding: 72px 0 28px; }
+      .h1{ font-size: clamp(28px, 8vw, 40px); }
+      section{ padding: 48px 0; }
+    }
   </style>
 </head>
 <body>
