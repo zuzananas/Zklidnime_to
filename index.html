@@ -81,17 +81,33 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="brand">Vaše&nbsp;organizace</div>
-      <nav class="navlinks" aria-label="Hlavní navigace">
-        <a href="#o-nas">O nás</a>
-        <a href="#co-delame">Co děláme</a>
-        <a href="#akce">Akce</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
-    </div>
-  </header>
+<header>
+  <div class="container nav">
+    <div class="brand">Vaše&nbsp;organizace</div>
+
+    <!-- Tlačítko pro mobilní menu -->
+    <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Otevřít menu">
+      ☰
+    </button>
+
+    <!-- Původní odkazy pro desktop -->
+    <nav class="navlinks" aria-label="Hlavní navigace">
+      <a href="#o-nas">O nás</a>
+      <a href="#co-delame">Co děláme</a>
+      <a href="#akce">Akce</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </div>
+
+  <!-- Rozbalovací panel pro mobily (skrytý, zobrazí se po kliknutí) -->
+  <nav id="mobile-menu" class="mobile-menu" aria-label="Hlavní navigace (mobil)">
+    <a href="#o-nas"  class="m-link">O nás</a>
+    <a href="#co-delame" class="m-link">Co děláme</a>
+    <a href="#akce" class="m-link">Akce</a>
+    <a href="#kontakt" class="m-link">Kontakt</a>
+  </nav>
+</header>
+
 
   <!-- HERO full width -->
   <div class="hero-wrap">
