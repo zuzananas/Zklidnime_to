@@ -7,107 +7,150 @@
   <meta name="description" content="Stručné představení malé organizace, informace o činnosti a přihlášky na akce přes Luma." />
   <meta name="color-scheme" content="light dark" />
   <style>
-    :root {
-      --bg: #fcfcfc;
-      --fg: #0f172a;      /* neutrální tmavá */
-      --muted: #5b5b58;   /* teplá šedá */
-      --accent: #3f3a2f;  /* warm charcoal */
-      --accent-contrast: #ffffff;
-      --border: #e6e2da;  /* warm gray */
-      --beige: #f7f3ed;   /* jemné plátno */
-      --shadow: 0 10px 36px rgba(0,0,0,.06);
-      --max: 1200px;      /* čtecí šířka pro variantu A */
-    }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg:#0b0f1a; --fg:#e7e5e4; --muted:#c7c3bc; --accent:#e7e5e4; --accent-contrast:#0b0f1a; --border:#2b2a27; --beige:#111418;
-      }
+    :root{
+      --bg:#fcfcfc;
+      --fg:#0f172a;      /* neutrální tmavá */
+      --muted:#5b5b58;   /* teplá šedá */
+      --accent:#3f3a2f;  /* warm charcoal */
+      --accent-contrast:#ffffff;
+      --border:#e6e2da;  /* warm gray */
+      --beige:#f7f3ed;   /* jemné plátno */
+      --shadow:0 10px 36px rgba(0,0,0,.06);
+      --max:1200px;      /* čtecí šířka obsahu */
+      --bp:700px;        /* breakpoint pro mobilní menu */
     }
 
     /* ZÁKLAD */
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--fg);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;line-height:1.65;letter-spacing:.01em}
-    a{color:inherit}
+    html,body{max-width:100%;overflow-x:hidden}
+    body{
+      margin:0;background:var(--bg);color:var(--fg);
+      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      line-height:1.65;letter-spacing:.01em
+    }
+    a{color:inherit;text-decoration:underline;}
     h1,h2{color:inherit}
-
     .container{max-width:var(--max);margin:0 auto;padding:0 24px}
+    [id]{scroll-margin-top:88px;} /* kotvy neskáčou pod sticky header */
 
-    header{position:sticky;top:0;backdrop-filter:blur(8px);background:color-mix(in oklab,var(--bg),transparent 12%);border-bottom:1px solid var(--border);z-index:10}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px}
-    .brand{font-weight:700}
+    /* HLAVIČKA + NAV */
+    header{position:sticky;top:0;z-index:20;border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px);background:color-mix(in oklab,var(--bg),transparent 12%)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px}
+    .brand{font-weight:700;white-space:nowrap}
+
     .navlinks{display:flex;gap:10px}
-    .navlinks a{padding:8px 10px;text-decoration:none;border-radius:10px}
+    .navlinks a{padding:8px 10px;border-radius:10px;text-decoration:none}
+    .navlinks a:focus-visible{outline:2px solid #b6b0a6;outline-offset:2px}
 
-    /* HERO přes celou šířku */
-    .hero-wrap{position:relative;isolation:isolate;overflow:clip;background:
-      linear-gradient(180deg,color-mix(in oklab,var(--beige),transparent 40%),transparent),
-      url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat}
-    .hero{padding:clamp(56px,8vw,120px) 0 36px;color:#fff;text-align:center}
+    /* Tlačítko menu (zobrazí se jen na mobilech) */
+    .menu-toggle{
+      display:none;
+      font:inherit;
+      border:1px solid var(--border);
+      background:#fff;
+      border-radius:10px;
+      padding:6px 10px;
+      cursor:pointer;
+      box-shadow:var(--shadow);
+    }
+
+    /* Mobilní panel pod hlavičkou (skrytý) */
+    .mobile-wrap{border-bottom:1px solid var(--border);background:var(--beige)}
+    .mobile-menu{
+      display:none; max-height:0; overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    .mobile-menu a{
+      display:block; padding:12px 24px; text-decoration:none;
+      border-top:1px solid var(--border);
+    }
+    .mobile-menu.open{display:block; max-height:260px;} /* uprav podle počtu odkazů */
+
+    /* HERO – přes celou šířku */
+    .hero-wrap{
+      position:relative; isolation:isolate; overflow:clip;
+      background:
+        linear-gradient(180deg, color-mix(in oklab, var(--beige), transparent 40%), transparent),
+        url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2000&auto=format&fit=crop')
+        center/cover no-repeat;
+    }
+    .hero{padding:clamp(56px,8vw,120px) 0 36px; color:#fff; text-align:center}
     .eyebrow{text-transform:uppercase;letter-spacing:.22em;font-size:.85rem;opacity:.9}
     .h1{font-size:clamp(32px,6vw,56px);line-height:1.12;letter-spacing:-.02em;margin:8px 0 12px}
     .lead{max-width:60ch;margin:0 auto 24px;font-size:clamp(1rem,2.3vw,1.25rem);opacity:.95}
 
-    .cta{display:inline-block;padding:12px 18px;border-radius:999px;background:var(--accent);color:var(--accent-contrast);text-decoration:none;font-weight:600;box-shadow:var(--shadow);border:1px solid color-mix(in oklab,var(--accent),#000 12%)}
+    .cta{
+      display:inline-block;padding:12px 18px;border-radius:999px;
+      background:var(--accent);color:var(--accent-contrast);
+      text-decoration:none;font-weight:600;box-shadow:var(--shadow);
+      border:1px solid color-mix(in oklab,var(--accent),#000 12%)
+    }
     .cta:hover{transform:translateY(-1px)}
+    .cta:active{transform:translateY(0)}
 
-    /* SEKCE – vzdušné, vycentrované */
+    /* SEKCE */
     section{padding:64px 0;border-top:1px solid var(--border)}
     section.alt{background:var(--beige);border-top:0;border-bottom:1px solid var(--border)}
     h2{font-size:22px;margin:0 0 12px}
     p{margin:0 0 12px}
-
     .grid{display:grid;gap:16px}
     @media(min-width:760px){.grid-2{grid-template-columns:1fr 1fr}}
-
     .card{border:1px solid var(--border);border-radius:16px;padding:18px;background:#fff;box-shadow:var(--shadow)}
-    footer{border-top:1px solid var(--border);padding:28px 0 40px;color:var(--muted);text-align:center}
-    /* --- Mobile polish & overflow safety --- */
-    html, body { max-width: 100%; overflow-x: hidden; }
-    img, video { max-width: 100%; height: auto; display: block; }
-    :where(h1,h2,h3,p,li,a){ word-break: normal; overflow-wrap: break-word; hyphens: auto; }
-    .navlinks{ flex-wrap: wrap; }
-    .cta{ white-space: normal; }
-    [id]{ scroll-margin-top: 88px; }
 
-    @media (max-width: 640px){
-      .nav{ padding: 12px 16px; }
-      .navlinks{ gap: .5rem; }
-      .navlinks a{ padding: 6px 8px; }
-      .container{ padding: 0 16px; }
-      .hero{ padding: 72px 0 28px; }
-      .h1{ font-size: clamp(28px, 8vw, 40px); }
-      section{ padding: 48px 0; }
+    /* FOOTER */
+    footer{border-top:1px solid var(--border);padding:28px 0 40px;color:var(--muted);text-align:center}
+
+    /* Obrázky a texty na mobilech bezpečně zalomit */
+    img,video{max-width:100%;height:auto;display:block}
+    :where(h1,h2,h3,p,li,a){overflow-wrap:break-word;hyphens:auto}
+
+    /* BREAKPOINT: mobilní chování menu */
+    @media (max-width: 700px){
+      .navlinks{display:none;}       /* desktop menu schovat */
+      .menu-toggle{display:inline-block;}  /* zobrazit tlačítko */
+      .container{padding:0 16px;}
+      .hero{padding:72px 0 28px;}
+      .h1{font-size:clamp(28px,8vw,40px);}
+      section{padding:48px 0;}
+    }
+
+    /* Dark mode */
+    @media (prefers-color-scheme: dark){
+      :root{--bg:#0b0f1a;--fg:#e7e5e4;--muted:#c7c3bc;--accent:#e7e5e4;--accent-contrast:#0b0f1a;--border:#2b2a27;--beige:#111418}
+      .menu-toggle{background:#0f1115}
+      .mobile-menu a{border-top-color:#2b2a27}
+      .card{background:#0f1115}
     }
   </style>
 </head>
 <body>
-<header>
-  <div class="container nav">
-    <div class="brand">Vaše&nbsp;organizace</div>
+  <header>
+    <div class="container nav">
+      <div class="brand">Vaše&nbsp;organizace</div>
 
-    <!-- Tlačítko pro mobilní menu -->
-    <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Otevřít menu">
-      ☰
-    </button>
+      <!-- Tlačítko pro mobilní menu -->
+      <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Otevřít menu">☰</button>
 
-    <!-- Původní odkazy pro desktop -->
-    <nav class="navlinks" aria-label="Hlavní navigace">
-      <a href="#o-nas">O nás</a>
-      <a href="#co-delame">Co děláme</a>
-      <a href="#akce">Akce</a>
-      <a href="#kontakt">Kontakt</a>
-    </nav>
-  </div>
+      <!-- Odkazy pro desktop -->
+      <nav class="navlinks" aria-label="Hlavní navigace">
+        <a href="#o-nas">O nás</a>
+        <a href="#co-delame">Co děláme</a>
+        <a href="#akce">Akce</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
 
-  <!-- Rozbalovací panel pro mobily (skrytý, zobrazí se po kliknutí) -->
-  <nav id="mobile-menu" class="mobile-menu" aria-label="Hlavní navigace (mobil)">
-    <a href="#o-nas"  class="m-link">O nás</a>
-    <a href="#co-delame" class="m-link">Co děláme</a>
-    <a href="#akce" class="m-link">Akce</a>
-    <a href="#kontakt" class="m-link">Kontakt</a>
-  </nav>
-</header>
-
+    <!-- Rozbalovací panel pro mobily -->
+    <div class="mobile-wrap">
+      <nav id="mobile-menu" class="mobile-menu" aria-label="Hlavní navigace (mobil)">
+        <a href="#o-nas"   class="m-link">O nás</a>
+        <a href="#co-delame" class="m-link">Co děláme</a>
+        <a href="#akce"    class="m-link">Akce</a>
+        <a href="#kontakt" class="m-link">Kontakt</a>
+      </nav>
+    </div>
+  </header>
 
   <!-- HERO full width -->
   <div class="hero-wrap">
@@ -116,9 +159,7 @@
         <div class="eyebrow">Setkávání • Sdílení • Klid</div>
         <h1 id="hlavni-nadpis" class="h1">Prostor pro klid, setkávání a smysluplné rozhovory</h1>
         <p class="lead">Jsme malý tým, který pořádá jednoduchá a bezpečná setkání. Minimum slov, maximum pozornosti. Všechny přihlášky běží přes platformu Luma.</p>
-        <p>
-          <a class="cta" href="https://lu.ma/your-page" target="_blank" rel="noopener">Nadcházející akce na&nbsp;Luma →</a>
-        </p>
+        <p><a class="cta" href="https://lu.ma/your-page" target="_blank" rel="noopener">Nadcházející akce na&nbsp;Luma →</a></p>
       </div>
     </section>
   </div>
@@ -153,9 +194,7 @@
     <div class="container">
       <h2 id="akce-h">Přihlášky na akce</h2>
       <p>Aktuální termíny, kapacitu a registraci najdete vždy na našem profilu na Luma.</p>
-      <p>
-        <a class="cta" href="https://lu.ma/your-page" target="_blank" rel="noopener" aria-label="Přejít na profil na Luma">Přejít na Luma →</a>
-      </p>
+      <p><a class="cta" href="https://lu.ma/your-page" target="_blank" rel="noopener" aria-label="Přejít na profil na Luma">Přejít na Luma →</a></p>
     </div>
   </section>
 
@@ -163,20 +202,47 @@
     <div class="container">
       <h2 id="kontakt-h">Kontakt</h2>
       <div class="card">
-        <p>E‑mail: <a href="mailto:ahoj@vaseorganizace.cz">ahoj@vaseorganizace.cz</a></p>
+        <p>E-mail: <a href="mailto:ahoj@vaseorganizace.cz">ahoj@vaseorganizace.cz</a></p>
         <p>Instagram: <a href="#" aria-label="Instagram organizace">@vaseorganizace</a></p>
-        <p style="color:var(--muted)">Preferujeme e‑mail. Odpovídáme obvykle do 2–3 dnů.</p>
+        <p style="color:var(--muted)">Preferujeme e-mail. Odpovídáme obvykle do 2–3 dnů.</p>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      © <span id="y"></span> Vaše organizace • IČO 01234567<br>
+      © <span id="y"></span> Vaše organizace • IČO 01234567<br />
       Tento web je úmyslně minimalistický: žádné cookies, žádný tracking, žádné rozptylování.
     </div>
   </footer>
 
-  <script>document.getElementById('y').textContent=new Date().getFullYear()</script>
+  <script>
+    // Rok ve footeru
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Mobilní menu: toggle + auto-zavření po kliknutí
+    const toggle = document.querySelector('.menu-toggle');
+    const mnav   = document.getElementById('mobile-menu');
+
+    function closeMenu(){
+      mnav.classList.remove('open');
+      toggle.setAttribute('aria-expanded','false');
+    }
+
+    toggle?.addEventListener('click', () => {
+      const willOpen = !mnav.classList.contains('open');
+      mnav.classList.toggle('open', willOpen);
+      toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+    });
+
+    mnav?.querySelectorAll('.m-link').forEach(a => {
+      a.addEventListener('click', closeMenu);
+    });
+
+    // Při změně velikosti nad breakpoint menu zavřít
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 700) closeMenu();
+    });
+  </script>
 </body>
 </html>
