@@ -38,7 +38,7 @@
     /* HLAVIČKA */
     header{
       background:var(--beige);
-      border-bottom:none; /* -> pokud chceš linku pod hlavičkou, dej 1px solid var(--border) */
+      border-bottom:none; /* pokud chceš linku pod hlavičkou, dej 1px solid var(--border) */
     }
     .nav{
       display:flex;
@@ -137,10 +137,10 @@
 
       color:#fff;
 
-      /* -> díky tomu je fotka vidět i na desktopu */
+      /* fotka je vidět i na desktopu */
       min-height:60vh;
 
-      /* text zarovnaný vertikálně jemně doprostřed */
+      /* text vertikálně přirozeně uprostřed */
       display:flex;
       align-items:center;
     }
@@ -160,12 +160,15 @@
       pointer-events:none;
     }
 
+    /* hero sekce – MUSÍ být průhledná, ne bílá */
     .hero{
-      position:relative; /* text je nad filtrem */
+      position:relative; /* text je nad stmavením */
       width:100%;
       text-align:center;
       color:#fff;
       padding:48px 0 48px;
+      background:transparent;
+      border-top:0;
     }
 
     .eyebrow{
@@ -205,7 +208,7 @@
       z-index:1;
     }
 
-    /* OBSAHOVÉ SEKCE */
+    /* OBECNÉ SEKCE POD HERO */
     section{
       padding:40px 0 64px;
       border-top:1px solid var(--border);
@@ -217,6 +220,7 @@
       border-top:0;
       border-bottom:1px solid var(--border)
     }
+
     h2{
       font-size:22px;
       margin:0 0 12px;
