@@ -22,6 +22,7 @@
 
     *{box-sizing:border-box}
     html,body{max-width:100%;overflow-x:hidden}
+    html{scroll-behavior:smooth;}
     body{
       margin:0;background:var(--bg);color:var(--fg);
       font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
@@ -31,14 +32,13 @@
     h1,h2{color:inherit}
     .container{max-width:var(--max);margin:0 auto;padding:0 24px}
 
-    /* při kliknutí na "O nás" apod. – kam zarovnat nadpis */
-    h2[id]{scroll-margin-top:30px;} /* klidně změň na 40px pokud ti to sedí víc */
+    /* když kliknu na "O nás" apod. – kam se má zarovnat nadpis */
+    h2[id]{scroll-margin-top:40px;}
 
     /* HLAVIČKA */
     header{
+      background:var(--beige);
       border-bottom:1px solid var(--border);
-      backdrop-filter:blur(8px);
-      background:color-mix(in oklab,var(--bg),transparent 12%);
     }
     .nav{
       display:flex;
@@ -48,13 +48,18 @@
       padding:14px 24px;
     }
     .brand{
-      font-weight:700;
+      font-weight:600;
       white-space:nowrap;
+      font-size:1.05rem;
+      line-height:1.2;
+      color:var(--fg);
     }
 
+    /* desktopové odkazy */
     .navlinks{
       display:flex;
       gap:10px;
+      font-size:.95rem;
     }
     .navlinks a{
       padding:8px 10px;
@@ -66,14 +71,14 @@
       outline-offset:2px;
     }
 
-    /* Minimalistické hamburger menu (3 čárky, které se po otevření změní na X) */
+    /* Minimal hamburger */
     .menu-toggle{
       display:none;
       flex-direction:column;
       justify-content:center;
-      gap:5px;
-      width:32px;
-      height:26px;
+      gap:4px;
+      width:28px;
+      height:24px;
       border:none;
       background:transparent;
       cursor:pointer;
@@ -87,31 +92,31 @@
       border-radius:2px;
       transition:transform .25s ease, opacity .25s ease;
     }
-    /* stav otevřeno -> přetáčení na X */
     .menu-toggle[aria-expanded="true"] span:nth-child(1){
-      transform:translateY(8px) rotate(45deg);
+      transform:translateY(7px) rotate(45deg);
     }
     .menu-toggle[aria-expanded="true"] span:nth-child(2){
       opacity:0;
     }
     .menu-toggle[aria-expanded="true"] span:nth-child(3){
-      transform:translateY(-8px) rotate(-45deg);
+      transform:translateY(-7px) rotate(-45deg);
     }
 
-    /* mobilní dropdown pod hlavičkou */
+    /* mobilní rozbalovací panel */
     .mobile-wrap{
+      background:var(--beige);
       border-bottom:1px solid var(--border);
-      background:var(--beige)
     }
     .mobile-menu{
       display:none;
       max-height:0;
       overflow:hidden;
       transition:max-height .25s ease;
+      font-size:1rem;
     }
     .mobile-menu a{
       display:block;
-      padding:12px 24px;
+      padding:14px 24px;
       text-decoration:none;
       border-top:1px solid var(--border);
     }
@@ -137,18 +142,19 @@
     .eyebrow{
       text-transform:uppercase;
       letter-spacing:.22em;
-      font-size:.85rem;
+      font-size:.8rem;
       opacity:.9;
     }
     .h1{
-      font-size:clamp(32px,6vw,56px);
-      line-height:1.12;
+      font-size:clamp(32px,6vw,48px);
+      line-height:1.15;
       margin:8px 0 12px;
+      font-weight:600;
     }
     .lead{
       max-width:60ch;
       margin:0 auto 24px;
-      font-size:clamp(1rem,2.3vw,1.25rem);
+      font-size:clamp(1rem,2.3vw,1.15rem);
       opacity:.95;
     }
     .cta{
@@ -161,12 +167,15 @@
       font-weight:600;
       box-shadow:var(--shadow);
       border:1px solid color-mix(in oklab,var(--accent),#000 12%);
+      font-size:1rem;
+      line-height:1.3;
     }
 
-    /* SEKCE */
+    /* SEKCE OBSAHU */
     section{
       padding:40px 0 64px;
       border-top:1px solid var(--border);
+      background:var(--bg);
     }
     section.alt{
       background:var(--beige);
@@ -176,6 +185,9 @@
     h2{
       font-size:22px;
       margin:0 0 12px;
+      color:var(--fg);
+      font-weight:600;
+      line-height:1.3;
     }
     p{margin:0 0 12px}
     .grid{
@@ -199,7 +211,10 @@
       border-top:1px solid var(--border);
       padding:28px 0 40px;
       color:var(--muted);
-      text-align:center
+      text-align:center;
+      background:var(--bg);
+      font-size:.9rem;
+      line-height:1.4;
     }
 
     img,video{
@@ -212,27 +227,51 @@
       hyphens:auto
     }
 
-    /* MOBILNÍ ÚPRAVY – lepší odsazení nahoře, vyvážený začátek stránky */
+    /* MOBIL: měkké, vzdušné, bez přehnaných linek */
     @media (max-width:700px){
-      .navlinks{display:none;}          /* schovat desktop menu */
-      .menu-toggle{display:flex;}       /* ukázat hamburger */
+      /* skryj desktop menu, ukaž hamburger */
+      .navlinks{display:none;}
+      .menu-toggle{display:flex;}
+
+      /* méně napěchovaný header na šířku telefonu */
       .nav{
         padding:12px 20px;
       }
       .brand{
-        font-size:1.05rem;
+        font-size:1rem;
+        font-weight:600;
       }
+
+      /* kontejner textu */
       .container{
         padding:0 18px;
       }
+
+      /* víc klidu v hero sekci na začátku stránky */
       .hero{
-        padding:80px 0 36px;           /* víc prostoru nahoře = působí klidněji */
+        padding:72px 0 36px;
       }
       .h1{
-        font-size:clamp(26px,8vw,38px);
+        font-size:clamp(26px,8vw,34px);
+        line-height:1.25;
       }
+      .lead{
+        font-size:1rem;
+        line-height:1.5;
+      }
+
       section{
         padding:48px 0;
+      }
+
+      /* header na mobilu opticky splyne s hero */
+      header{
+        background:var(--beige);
+        border-bottom:none; /* žádná tvrdá linka mezi hlavičkou a fotkou */
+      }
+      .mobile-wrap{
+        background:var(--beige);
+        border-bottom:1px solid var(--border);
       }
     }
 
@@ -247,11 +286,11 @@
         --border:#2b2a27;
         --beige:#111418
       }
-      .mobile-menu a{
-        border-top-color:#2b2a27;
-      }
       .card{
         background:#0f1115;
+      }
+      .mobile-menu a{
+        border-top-color:#2b2a27;
       }
     }
   </style>
@@ -261,7 +300,7 @@
     <div class="container nav">
       <div class="brand">Zklidníme to</div>
 
-      <!-- minimal hamburger button -->
+      <!-- hamburger -->
       <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Otevřít menu">
         <span></span><span></span><span></span>
       </button>
@@ -326,7 +365,7 @@
   <section id="akce" class="alt">
     <div class="container">
       <h2 id="akce-title">Přihlášky na akce</h2>
-      <p>Aktuální termíny, kapacitu a registraci najdete vždy na našem profilu na Luma.</p>
+    <p>Aktuální termíny, kapacitu a registraci najdete vždy na našem profilu na Luma.</p>
       <p><a class="cta" href="https://luma.com/user/zklidnimeto" target="_blank" rel="noopener" aria-label="Přejít na profil na Luma">Přejít na Luma →</a></p>
     </div>
   </section>
@@ -373,7 +412,7 @@
       a.addEventListener('click', closeMenu);
     });
 
-    // Když se zvětší viewport nad breakpoint, menu zavři
+    // Když přejdu nad breakpoint, menu zavři
     window.addEventListener('resize', () => {
       if (window.innerWidth > 700) closeMenu();
     });
