@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vaše organizace – prostor pro klid a setkávání</title>
+  <title>Zklidníme to – prostor pro klid a setkávání</title>
   <meta name="description" content="Stručné představení malé organizace, informace o činnosti a přihlášky na akce přes Luma." />
   <meta name="color-scheme" content="light dark" />
   <style>
@@ -31,82 +31,242 @@
     h1,h2{color:inherit}
     .container{max-width:var(--max);margin:0 auto;padding:0 24px}
 
-    /* posun při skoku na nadpis */
-    h2[id]{scroll-margin-top:30px;}
+    /* při kliknutí na "O nás" apod. – kam zarovnat nadpis */
+    h2[id]{scroll-margin-top:30px;} /* klidně změň na 40px pokud ti to sedí víc */
 
     /* HLAVIČKA */
-    header{border-bottom:1px solid var(--border);
-      backdrop-filter:blur(8px);background:color-mix(in oklab,var(--bg),transparent 12%)}
-    .nav{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 24px}
-    .brand{font-weight:700;white-space:nowrap}
-    .navlinks{display:flex;gap:10px}
-    .navlinks a{padding:8px 10px;border-radius:10px;text-decoration:none}
-    .navlinks a:focus-visible{outline:2px solid #b6b0a6;outline-offset:2px}
-
-    .menu-toggle{
-      display:none;font:inherit;border:1px solid var(--border);background:#fff;
-      border-radius:10px;padding:6px 10px;cursor:pointer;box-shadow:var(--shadow);
+    header{
+      border-bottom:1px solid var(--border);
+      backdrop-filter:blur(8px);
+      background:color-mix(in oklab,var(--bg),transparent 12%);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 24px;
+    }
+    .brand{
+      font-weight:700;
+      white-space:nowrap;
     }
 
-    .mobile-wrap{border-bottom:1px solid var(--border);background:var(--beige)}
-    .mobile-menu{display:none;max-height:0;overflow:hidden;transition:max-height .25s ease;}
-    .mobile-menu a{display:block;padding:12px 24px;text-decoration:none;border-top:1px solid var(--border);}
-    .mobile-menu.open{display:block;max-height:260px;}
+    .navlinks{
+      display:flex;
+      gap:10px;
+    }
+    .navlinks a{
+      padding:8px 10px;
+      border-radius:10px;
+      text-decoration:none;
+    }
+    .navlinks a:focus-visible{
+      outline:2px solid #b6b0a6;
+      outline-offset:2px;
+    }
+
+    /* Minimalistické hamburger menu (3 čárky, které se po otevření změní na X) */
+    .menu-toggle{
+      display:none;
+      flex-direction:column;
+      justify-content:center;
+      gap:5px;
+      width:32px;
+      height:26px;
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      padding:0;
+    }
+    .menu-toggle span{
+      display:block;
+      width:100%;
+      height:2px;
+      background-color:var(--fg);
+      border-radius:2px;
+      transition:transform .25s ease, opacity .25s ease;
+    }
+    /* stav otevřeno -> přetáčení na X */
+    .menu-toggle[aria-expanded="true"] span:nth-child(1){
+      transform:translateY(8px) rotate(45deg);
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2){
+      opacity:0;
+    }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3){
+      transform:translateY(-8px) rotate(-45deg);
+    }
+
+    /* mobilní dropdown pod hlavičkou */
+    .mobile-wrap{
+      border-bottom:1px solid var(--border);
+      background:var(--beige)
+    }
+    .mobile-menu{
+      display:none;
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    .mobile-menu a{
+      display:block;
+      padding:12px 24px;
+      text-decoration:none;
+      border-top:1px solid var(--border);
+    }
+    .mobile-menu.open{
+      display:block;
+      max-height:260px;
+    }
 
     /* HERO */
     .hero-wrap{
-      position:relative;overflow:hidden;
+      position:relative;
+      overflow:hidden;
       background:
         linear-gradient(180deg,color-mix(in oklab,var(--beige),transparent 40%),transparent),
         url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=2000&auto=format&fit=crop')
         center/cover no-repeat;
     }
-    .hero{padding:clamp(56px,8vw,120px) 0 36px;color:#fff;text-align:center}
-    .eyebrow{text-transform:uppercase;letter-spacing:.22em;font-size:.85rem;opacity:.9}
-    .h1{font-size:clamp(32px,6vw,56px);line-height:1.12;margin:8px 0 12px}
-    .lead{max-width:60ch;margin:0 auto 24px;font-size:clamp(1rem,2.3vw,1.25rem);opacity:.95}
+    .hero{
+      padding:clamp(56px,8vw,120px) 0 36px;
+      color:#fff;
+      text-align:center;
+    }
+    .eyebrow{
+      text-transform:uppercase;
+      letter-spacing:.22em;
+      font-size:.85rem;
+      opacity:.9;
+    }
+    .h1{
+      font-size:clamp(32px,6vw,56px);
+      line-height:1.12;
+      margin:8px 0 12px;
+    }
+    .lead{
+      max-width:60ch;
+      margin:0 auto 24px;
+      font-size:clamp(1rem,2.3vw,1.25rem);
+      opacity:.95;
+    }
     .cta{
-      display:inline-block;padding:12px 18px;border-radius:999px;
-      background:var(--accent);color:var(--accent-contrast);
-      text-decoration:none;font-weight:600;box-shadow:var(--shadow);
-      border:1px solid color-mix(in oklab,var(--accent),#000 12%)
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:999px;
+      background:var(--accent);
+      color:var(--accent-contrast);
+      text-decoration:none;
+      font-weight:600;
+      box-shadow:var(--shadow);
+      border:1px solid color-mix(in oklab,var(--accent),#000 12%);
     }
 
-    section{padding:40px 0 64px;border-top:1px solid var(--border);}
-    section.alt{background:var(--beige);border-top:0;border-bottom:1px solid var(--border)}
-    h2{font-size:22px;margin:0 0 12px}
+    /* SEKCE */
+    section{
+      padding:40px 0 64px;
+      border-top:1px solid var(--border);
+    }
+    section.alt{
+      background:var(--beige);
+      border-top:0;
+      border-bottom:1px solid var(--border)
+    }
+    h2{
+      font-size:22px;
+      margin:0 0 12px;
+    }
     p{margin:0 0 12px}
-    .grid{display:grid;gap:16px}
-    @media(min-width:760px){.grid-2{grid-template-columns:1fr 1fr}}
-    .card{border:1px solid var(--border);border-radius:16px;padding:18px;background:#fff;box-shadow:var(--shadow)}
-    footer{border-top:1px solid var(--border);padding:28px 0 40px;color:var(--muted);text-align:center}
-
-    img,video{max-width:100%;height:auto;display:block}
-    :where(h1,h2,h3,p,li,a){overflow-wrap:break-word;hyphens:auto}
-
-    @media (max-width:700px){
-      .navlinks{display:none;}
-      .menu-toggle{display:inline-block;}
-      .container{padding:0 16px;}
-      .hero{padding:72px 0 28px;}
-      .h1{font-size:clamp(28px,8vw,40px);}
-      section{padding:48px 0;}
+    .grid{
+      display:grid;
+      gap:16px
+    }
+    @media(min-width:760px){
+      .grid-2{
+        grid-template-columns:1fr 1fr
+      }
+    }
+    .card{
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:18px;
+      background:#fff;
+      box-shadow:var(--shadow)
     }
 
+    footer{
+      border-top:1px solid var(--border);
+      padding:28px 0 40px;
+      color:var(--muted);
+      text-align:center
+    }
+
+    img,video{
+      max-width:100%;
+      height:auto;
+      display:block
+    }
+    :where(h1,h2,h3,p,li,a){
+      overflow-wrap:break-word;
+      hyphens:auto
+    }
+
+    /* MOBILNÍ ÚPRAVY – lepší odsazení nahoře, vyvážený začátek stránky */
+    @media (max-width:700px){
+      .navlinks{display:none;}          /* schovat desktop menu */
+      .menu-toggle{display:flex;}       /* ukázat hamburger */
+      .nav{
+        padding:12px 20px;
+      }
+      .brand{
+        font-size:1.05rem;
+      }
+      .container{
+        padding:0 18px;
+      }
+      .hero{
+        padding:80px 0 36px;           /* víc prostoru nahoře = působí klidněji */
+      }
+      .h1{
+        font-size:clamp(26px,8vw,38px);
+      }
+      section{
+        padding:48px 0;
+      }
+    }
+
+    /* DARK MODE */
     @media (prefers-color-scheme:dark){
-      :root{--bg:#0b0f1a;--fg:#e7e5e4;--muted:#c7c3bc;--accent:#e7e5e4;--accent-contrast:#0b0f1a;--border:#2b2a27;--beige:#111418}
-      .menu-toggle{background:#0f1115}
-      .mobile-menu a{border-top-color:#2b2a27}
-      .card{background:#0f1115}
+      :root{
+        --bg:#0b0f1a;
+        --fg:#e7e5e4;
+        --muted:#c7c3bc;
+        --accent:#e7e5e4;
+        --accent-contrast:#0b0f1a;
+        --border:#2b2a27;
+        --beige:#111418
+      }
+      .mobile-menu a{
+        border-top-color:#2b2a27;
+      }
+      .card{
+        background:#0f1115;
+      }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="container nav">
-      <div class="brand">Vaše&nbsp;organizace</div>
-      <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Otevřít menu">☰</button>
+      <div class="brand">Zklidníme to</div>
 
+      <!-- minimal hamburger button -->
+      <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Otevřít menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <!-- desktop menu -->
       <nav class="navlinks" aria-label="Hlavní navigace">
         <a href="#o-nas-title">O nás</a>
         <a href="#co-delame-title">Co děláme</a>
@@ -115,6 +275,7 @@
       </nav>
     </div>
 
+    <!-- mobilní rozbalovací panel -->
     <div class="mobile-wrap">
       <nav id="mobile-menu" class="mobile-menu" aria-label="Hlavní navigace (mobil)">
         <a href="#o-nas-title" class="m-link">O nás</a>
@@ -140,8 +301,12 @@
     <div class="container">
       <h2 id="o-nas-title">O nás</h2>
       <div class="grid grid-2">
-        <div class="card"><p>Naší vizí je nabídnout lidem klidný a vstřícný prostor pro sdílení a ztišení. Setkáváme se pravidelně v malých skupinách, bez tlaku a bez složitostí.</p></div>
-        <div class="card"><p>Všechno držíme záměrně minimalistické: krátké texty, žádné přehlcení a jasné kroky — abyste snadno našli, co potřebujete, i na mobilu.</p></div>
+        <div class="card">
+          <p>Naší vizí je nabídnout lidem klidný a vstřícný prostor pro sdílení a ztišení. Setkáváme se pravidelně v malých skupinách, bez tlaku a bez složitostí.</p>
+        </div>
+        <div class="card">
+          <p>Všechno držíme záměrně minimalistické: krátké texty, žádné přehlcení a jasné kroky — abyste snadno našli, co potřebujete, i na mobilu.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -171,7 +336,7 @@
       <h2 id="kontakt-title">Kontakt</h2>
       <div class="card">
         <p>E-mail: <a href="mailto:ahoj@vaseorganizace.cz">ahoj@vaseorganizace.cz</a></p>
-        <p>Instagram: <a href="#" aria-label="Instagram organizace">@vaseorganizace</a></p>
+        <p>Instagram: <a href="#" aria-label="Instagram organizace">@zklidnimeto</a></p>
         <p style="color:var(--muted)">Preferujeme e-mail. Odpovídáme obvykle do 2–3 dnů.</p>
       </div>
     </div>
@@ -179,14 +344,16 @@
 
   <footer>
     <div class="container">
-      © <span id="y"></span> Vaše organizace • IČO 01234567<br />
+      © <span id="y"></span> Zklidníme to • IČO 01234567<br />
       Tento web je úmyslně minimalistický: žádné cookies, žádný tracking, žádné rozptylování.
     </div>
   </footer>
 
   <script>
+    // Rok ve footeru
     document.getElementById('y').textContent = new Date().getFullYear();
 
+    // Mobilní menu toggle
     const toggle = document.querySelector('.menu-toggle');
     const mnav = document.getElementById('mobile-menu');
 
@@ -201,10 +368,12 @@
       toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
     });
 
+    // Zavři menu po kliknutí na odkaz
     mnav?.querySelectorAll('.m-link').forEach(a => {
       a.addEventListener('click', closeMenu);
     });
 
+    // Když se zvětší viewport nad breakpoint, menu zavři
     window.addEventListener('resize', () => {
       if (window.innerWidth > 700) closeMenu();
     });
