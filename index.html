@@ -6,6 +6,7 @@
   <title>Zklidníme to – prostor pro klid a setkávání</title>
   <meta name="description" content="Stručné představení malé organizace, informace o činnosti a přihlášky na akce přes Luma." />
   <meta name="color-scheme" content="light dark" />
+  <script src="https://kit.fontawesome.com/0ec3101fd7.js" crossorigin="anonymous"></script>
   <style>
     :root{
       --bg:#fcfcfc;
@@ -186,7 +187,7 @@
       color:#fff;
     }
     .lead{
-      max-width:60ch;
+      max-width:65ch;
       margin:0 auto 24px;
       font-size:clamp(1rem,2.3vw,1.15rem);
       opacity:.95;
@@ -246,11 +247,107 @@
       box-shadow:var(--shadow)
     }
 
+    /* FAQ SEKCE */
+    .faq-item{
+      border:1px solid var(--border);
+      border-radius:16px;
+      margin-bottom:12px;
+      background:#fff;
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+    .faq-question{
+      width:100%;
+      padding:18px;
+      text-align:left;
+      background:#fff;
+      border:none;
+      cursor:pointer;
+      font-size:1rem;
+      font-family:inherit;
+      font-weight:600;
+      color:var(--fg);
+      display: flex;
+      justify-content: space-between;
+      align-items:center;
+      transition:background 0.2s ease;
+    }
+    .faq-question:hover{
+      background:var(--beige);
+    }
+    .faq-question:focus-visible{
+      outline:2px solid #b6b0a6;
+      outline-offset:-2px;
+    }
+    .faq-icon::before{
+      content: "▶";
+    }
+    .faq-icon{
+      display:inline-block;
+      font-size:0.9rem;
+      transition:transform 0.2s ease;
+    }
+    .faq-question[aria-expanded="true"] .faq-icon{
+      transform:rotate(90deg);
+    }
+    .faq-answer{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height 0.4s ease;
+      background:#fff;
+      padding:0 18px 0px;
+    }
+    .faq-answer.open{
+      max-height:500px;
+    }
+    .faq-answer p{
+      margin: 8px 0 0 0;
+      color:var(--fg);
+      line-height:1.65;
+      padding-bottom: 15px;
+    }
+
+    /* KONTAKT SOCIAL LINKS */
+    .social-links{
+      display:flex;
+      gap:12px;
+      margin:16px 0;
+      flex-wrap:wrap;
+    }
+    .social-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 16px;
+      border-radius:8px;
+      background:var(--beige);
+      border:1px solid var(--border);
+      text-decoration:none;
+      color:var(--fg);
+      font-weight:500;
+      font-size:.95rem;
+      transition:all 0.2s ease;
+    }
+    .social-link:hover{
+      background:var(--accent);
+      color:var(--accent-contrast);
+      border-color:var(--accent);
+    }
+    .social-link:focus-visible{
+      outline:2px solid #b6b0a6;
+      outline-offset:2px;
+    }
+    .social-icon{
+      font-size:1.1rem;
+      color:inherit;
+    }
+
     footer{
       border-top:1px solid var(--border);
       padding:28px 0 40px;
       color:var(--muted);
-      text-align:center;
+      text-align:left;
       background:var(--bg);
       font-size:.9rem;
       line-height:1.4;
@@ -322,9 +419,9 @@
 
       <!-- desktop menu -->
       <nav class="navlinks" aria-label="Hlavní navigace">
-        <a href="#o-nas-title">O nás</a>
         <a href="#co-delame-title">Co děláme</a>
         <a href="#akce-title">Akce</a>
+        <a href="#faq-title">FAQ</a>
         <a href="#kontakt-title">Kontakt</a>
       </nav>
     </div>
@@ -332,9 +429,9 @@
     <!-- mobilní rozbalovací panel -->
     <div class="mobile-wrap">
       <nav id="mobile-menu" class="mobile-menu" aria-label="Hlavní navigace (mobil)">
-        <a href="#o-nas-title" class="m-link">O nás</a>
         <a href="#co-delame-title" class="m-link">Co děláme</a>
         <a href="#akce-title" class="m-link">Akce</a>
+        <a href="#faq-title" class="m-link">FAQ</a>
         <a href="#kontakt-title" class="m-link">Kontakt</a>
       </nav>
     </div>
@@ -345,61 +442,166 @@
       <div class="container">
         <div class="eyebrow">Zklidnění • Zamyšlení • Sdílení • Porozumění</div>
         <h1 id="hlavni-nadpis" class="h1">Vytváříme prostor pro klid a setkávání</h1>
-        <p class="lead">Jsme malý tým, který pořádá jednoduchá a bezpečná setkání. Minimum slov, maximum pozornosti. Všechny přihlášky běží přes platformu Luma.</p>
-        <p><a class="cta" href="https://luma.com/user/zklidnimeto" target="_blank" rel="noopener">Nadcházející akce na&nbsp;Luma →</a></p>
+        <p class="lead">Ať už máš chuť strávit večer ve společnosti druhých, potřebuješ si na chvíli odpočinout nebo chceš zkrátka zažít něco trochu nevšedního - jsi tu správně.</p>
+        <p><a class="cta" href="https://luma.com/user/zklidnimeto" target="_blank" rel="noopener">Chci si zajistit místo →</a></p>
       </div>
     </section>
   </div>
 
-  <section id="o-nas">
-    <div class="container">
-      <h2 id="o-nas-title">O nás</h2>
-      <div class="grid grid-2">
-        <div class="card">
-          <p>Naší vizí je nabídnout lidem klidný a vstřícný prostor pro sdílení a ztišení. Setkáváme se pravidelně v malých skupinách, bez tlaku a bez složitostí.</p>
-        </div>
-        <div class="card">
-          <p>Všechno držíme záměrně minimalistické: krátké texty, žádné přehlcení a jasné kroky — abyste snadno našli, co potřebujete, i na mobilu.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="co-delame">
     <div class="container">
       <h2 id="co-delame-title">Co děláme</h2>
-      <p>Jednoduché formáty s důrazem na bezpečný prostor a pozornost:</p>
+      <p>Organizujeme pravidelné večerní setkání v Brně, s cílem nabídnout prostor pro každého,
+        kdo si chce dopřát čas pro zklidnění a zamyšlení a zároveň by ho rád strávil ve společnosti dalších lidí.
+        Setkáváme se v počtu 5 - 10 lidí a jedno setkání trvá 1,5 - 2 hodiny.
+      </p>
+      <p>Každé sektání obsahuje tyto části:</p>
       <ul>
-        <li>Pravidelné kruhy sdílení a zklidnění.</li>
-        <li>Krátké procházky v přírodě se záměrem.</li>
-        <li>Tematické večery (ticho, vděčnost, pozornost).</li>
+        <li>Krátké zklidnění a úvod</li>
+        <li>Prostor pro sdílení v kruhu</li>
+        <li>Čas na samostatné zamyšlení a sebereflexi pomocí vypracování "pracovního listu"</li>
+        <li>Závěrečná relaxace</li>
       </ul>
+      <p>Účast na těchto setkáních je bezplatná, je potřeba si jen zarezervovat místo.</p>
     </div>
   </section>
 
   <section id="akce" class="alt">
     <div class="container">
-      <h2 id="akce-title">Přihlášky na akce</h2>
+      <h2 id="akce-title">Zarezervuj si místo</h2>
       <p>Aktuální termíny, kapacitu a registraci najdete vždy na našem profilu na Luma.</p>
       <p><a class="cta" href="https://luma.com/user/zklidnimeto" target="_blank" rel="noopener" aria-label="Přejít na profil na Luma">Přejít na Luma →</a></p>
     </div>
+  </section>
+
+  <section id="faq">
+    <div class="container">
+      <h2 id="faq-title">Často kladené otázky</h2>
+      
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-1">
+          </span><span>Nikdy jsem se podobné akce neúčastnil*a. Nevadí to?</span><span class="faq-icon"></span>
+        </button>
+        <div id="faq-answer-1" class="faq-answer">
+          <p>
+            Nevadí! Budeme moc rádi, když si účast na našem setkání vyzkoušíš a uvidíš, jaké to pro tebe bude. Na místě vždy všechno vysvětlujeme tak, aby to bylo jasné úplně každému.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-2">
+          </span><span>Co když mám problém mluvit před druhými lidmi? </span><span class="faq-icon"></span>
+        </button>
+        <div id="faq-answer-2" class="faq-answer">
+          <p>
+            Na setkání se snažíme vytvořit takové prostředí, aby se každý cítil příjemně a sdílení před ostatními bylo co nejmíň stresující. Zároveň pokud kdokoli z jakéhokoli důvodu mluvit nechce, tak nemusí. Někdy má člověk potřebu být spíš v roli posluchače a je to úplně v pořádku. 
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-3">
+          </span><span>Jak to, že je účast na setkání zdarma? Je v tom nějaký háček?</span><span class="faq-icon"></span>
+        </button>
+        <div id="faq-answer-3" class="faq-answer">
+          <p>
+            Žádný háček v tom není, účast je zdarma díky grantu od Evropského sboru solidarity. Tím můžeme pokrýt veškeré náklady. Jediné, o co tě na oplátku požádáme bude vyplnit krátký dotazník se zpětnou vazbou, jaká pro tebe účast na akci byla - abychom pak zpětnou vazbu od účastníků mohli použít do závěrečné zprávy.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-4">
+          </span><span>Jak se přihlásím na akci?</span><span class="faq-icon"></span>
+        </button>
+        <div id="faq-answer-4" class="faq-answer">
+          <p>Všechna setkání jsou slaďována přes platformu Luma. Jdi na náš profil na <a href="https://luma.com/user/zklidnimeto" target="_blank" rel="noopener">Luma</a>, kde najdeš aktuální termíny a budeš se moci zaregistrovat.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-5">
+          </span><span>Můžu s sebou vzít přítele*kyni/kamaráda*ku?</span><span class="faq-icon"></span>
+        </button>
+        <div id="faq-answer-5" class="faq-answer">
+          <p>
+            Můžeš. :) Ze zkušenosti zároveň víme, že někdy je pro člověka jednodušší být autentičtější před lidmi, které nezná. Záleží, jak to vnímáš ty. 
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-6">
+          </span><span>Mám si s sebou na setkání vzít něco speciálního nebo se nějak připravit?</span><span class="faq-icon"></span>
+        </button>
+        <div id="faq-answer-6" class="faq-answer">
+          <p>
+            Stačí přijít, tak jak jsi. Jediné doporučení se týká oblečení: sedáváme na zemi, takže sukně nemusí být ideální. Zároveň pokud míváš tenké ponožky (nebo nechceš aby někdo viděl, že máš děravé ponožky), tak se hodí vědět, že jsme na místě bosky.
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-7">
+          </span><span>Je možné účast na setkání přizpůsobit mým speciálním potřebám?</span><span class="faq-icon"></span>
+        </button>
+        <div id="faq-answer-7" class="faq-answer">
+          <p>
+            Budeme rádi, když nás budeš kontaktovat přes email <TODO>info@zklidnimeto.cz</TODO>. Pokud to bude v našich silách, rádi setkání přizpůsobíme, aby se mohl zúčastnit každý, kdo má zájem. 
+          </p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false" aria-controls="faq-answer-8">
+          </span><span>Nebude setkání moc ezo?</span><span class="faq-icon"></span>
+        </button>
+        <div id="faq-answer-8" class="faq-answer">
+          <p>
+            S čakrou ani tokem energie pracovat neumíme a ani to není naším cílem. Zároveň je součástí večera například vedená relaxace nebo práce s dechem. Podle nás to ezo není, ale raději to zmiňujeme, protože pro někoho může být... :)
+          </p>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <section id="kontakt">
     <div class="container">
       <h2 id="kontakt-title">Kontakt</h2>
       <div class="card">
-        <p>E-mail: <a href="mailto:ahoj@vaseorganizace.cz">ahoj@vaseorganizace.cz</a></p>
-        <p>Instagram: <a href="#" aria-label="Instagram organizace">@zklidnimeto</a></p>
-        <p style="color:var(--muted)">Preferujeme e-mail. Odpovídáme obvykle do 2–3 dnů.</p>
+        <p>
+          Nenašel jsi odpověď na svoji otázku nebo se s námi chceš spojit? Napiš nám prosím na e-mail.<br>
+          Pro aktuální informace nás můžeš taky sledovat na sociálních sítích.
+        </p>
+        <p><strong>E-mail:</strong> <a href="mailto:info@zklidnimeto.cz">info@zklidnimeto.cz</a></p>
+        
+        <div class="social-links">
+          <a href="https://www.instagram.com/zklidnime.to" target="_blank" rel="noopener" class="social-link" aria-label="Sledovat na Instagramu">
+            <i class="fa-brands fa-instagram"></i>
+            <span>Instagram</span>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61581057479775" target="_blank" rel="noopener" class="social-link" aria-label="Sledovat na Facebooku">
+            <i class="fa-brands fa-facebook"></i>
+            <span>Facebook</span>
+          </a>
+        </div>
+        
+        <p style="color:var(--muted); margin-top:20px;">Preferujeme e-mail. Odpovídáme obvykle do 2–3 dnů.</p>
       </div>
     </div>
   </section>
 
   <footer>
     <div class="container">
-      © <span id="y"></span> Zklidníme to • IČO 01234567<br />
-      Tento web je úmyslně minimalistický: žádné cookies, žádný tracking, žádné rozptylování.
+      <div style="display: flex; align-items: center; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <img src="assets/img/eu-funded-logo.png" style="height: 32px;" alt="EU funded logo" />
+        <div>
+          © <span id="y"></span> Zklidníme to • IČO 01234567<br />
+          Tento web je úmyslně minimalistický: žádné cookies, žádný tracking, žádné rozptylování.
+        </div>
+      </div>
     </div>
   </footer>
 
@@ -430,6 +632,23 @@
     // Když přejdu nad breakpoint, menu zavři
     window.addEventListener('resize', () => {
       if (window.innerWidth > 700) closeMenu();
+    });
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-question').forEach(button => {
+      button.addEventListener('click', () => {
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+        const answerId = button.getAttribute('aria-controls');
+        const answer = document.getElementById(answerId);
+
+        if (isExpanded) {
+          button.setAttribute('aria-expanded', 'false');
+          answer.classList.remove('open');
+        } else {
+          button.setAttribute('aria-expanded', 'true');
+          answer.classList.add('open');
+        }
+      });
     });
   </script>
 </body>
