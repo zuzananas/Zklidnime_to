@@ -368,8 +368,47 @@
       hyphens:auto
     }
 
+    /* Back to top button */
+    .back-to-top{
+      display:none;
+      position:fixed;
+      bottom:24px;
+      right:24px;
+      width:48px;
+      height:48px;
+      background:var(--accent);
+      color:var(--accent-contrast);
+      border:none;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:1.2rem;
+      z-index:999;
+      box-shadow:var(--shadow);
+      transition:opacity 0.3s ease, transform 0.3s ease;
+      align-items:center;
+      justify-content:center;
+    }
+    .back-to-top.show{
+      display:flex;
+    }
+    .back-to-top:hover{
+      transform:translateY(-3px);
+      box-shadow:0 14px 40px rgba(0,0,0,.1);
+    }
+    .back-to-top:focus-visible{
+      outline:2px solid #b6b0a6;
+      outline-offset:2px;
+    }
+
     /* MOBIL */
     @media (max-width:700px){
+      .back-to-top{
+        bottom:20px;
+        right:20px;
+        width:44px;
+        height:44px;
+        font-size:1.1rem;
+      }
       .navlinks{display:none;}
       .menu-toggle{display:flex;}
 
@@ -408,6 +447,12 @@
       .mobile-wrap{
         background:var(--beige);
         border-bottom:1px solid var(--border);
+      }
+    }
+
+    @media (min-width:701px){
+      .back-to-top{
+        display:none !important;
       }
     }
   </style>
@@ -598,6 +643,10 @@
     </div>
   </section>
 
+  <button class="back-to-top" aria-label="Zpět na začátek" title="Zpět na začátek">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
   <footer>
     <div class="container">
       <div style="display: flex; align-items: center; gap: 12px; justify-content: center; flex-wrap: wrap;">
@@ -654,6 +703,19 @@
           answer.classList.add('open');
         }
       });
+    });
+
+    // Back to top button
+    const backToTopBtn = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        backToTopBtn.classList.add('show');
+      } else {
+        backToTopBtn.classList.remove('show');
+      }
+    });
+    backToTopBtn?.addEventListener('click', () => {
+      window.scrollTo({top: 0, behavior: 'smooth'});
     });
   </script>
 </body>
