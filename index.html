@@ -461,8 +461,8 @@
       }
     }
 
-    /* Cookie consent banner */
-    .cookie-banner{
+    /* Consent banner */
+    .consent-banner{
       position:fixed;
       left:16px;
       right:16px;
@@ -478,20 +478,20 @@
       flex-direction:column;
       gap:12px;
     }
-    .cookie-banner[hidden]{
+    .consent-banner[hidden]{
       display:none !important;
     }
-    .cookie-banner p{
+    .consent-banner p{
       margin:0;
       font-size:.95rem;
       color:var(--fg);
     }
-    .cookie-actions{
+    .consent-actions{
       display:flex;
       gap:10px;
       flex-wrap:wrap;
     }
-    .cookie-btn{
+    .consent-btn{
       padding:10px 14px;
       border-radius:999px;
       border:1px solid var(--border);
@@ -501,12 +501,12 @@
       font-weight:600;
       font-size:.95rem;
     }
-    .cookie-btn.primary{
+    .consent-btn.primary{
       background:var(--accent);
       color:var(--accent-contrast);
       border-color:color-mix(in oklab,var(--accent),#000 12%);
     }
-    .cookie-manage{
+    .consent-manage{
       color:var(--muted);
       font-size:.85rem;
       text-decoration:underline;
@@ -517,7 +517,7 @@
       align-self:flex-start;
     }
     @media (min-width:760px){
-      .cookie-banner{
+      .consent-banner{
         left:auto;
         right:24px;
         bottom:24px;
@@ -718,16 +718,16 @@
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
-  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Nastavení cookies" hidden>
+  <div id="consent-banner" class="consent-banner" role="dialog" aria-live="polite" aria-label="Nastavení cookies" hidden>
     <p>
       Používáme cookies pouze pro anonymní statistiky návštěvnosti (Google Analytics).
       Cookies se uloží až po vašem souhlasu.
     </p>
-    <div class="cookie-actions">
-      <button id="cookie-accept" class="cookie-btn primary" type="button">Povolit</button>
-      <button id="cookie-reject" class="cookie-btn" type="button">Odmítnout</button>
+    <div class="consent-actions">
+      <button id="consent-accept" class="consent-btn primary" type="button">Povolit</button>
+      <button id="consent-reject" class="consent-btn" type="button">Odmítnout</button>
     </div>
-    <button id="cookie-manage" class="cookie-manage" type="button">Upravit souhlas</button>
+    <button id="consent-manage" class="consent-manage" type="button">Upravit souhlas</button>
   </div>
 
   <footer>
@@ -737,7 +737,7 @@
         <div>
           © <span id="y"></span> Zklidníme to <br />
           Tento web je úmyslně minimalistický: žádné cookies bez souhlasu, žádný tracking bez vašeho svolení.
-          <button id="cookie-open" class="cookie-manage" type="button">Upravit souhlas s cookies</button>
+          <button id="consent-open" class="consent-manage" type="button">Upravit souhlas s cookies</button>
         </div>
       </div>
     </div>
@@ -804,13 +804,12 @@
 
     // Cookie consent + Google Analytics
     const GA_MEASUREMENT_ID = 'G-PH141QN3ZR';
-    const CONSENT_KEY = 'cookie_consent_zklidnime_to';
-    const banner = document.getElementById('cookie-banner');
-    const acceptBtn = document.getElementById('cookie-accept');
-    const rejectBtn = document.getElementById('cookie-reject');
-    const manageBtn = document.getElementById('cookie-manage');
-    const openBtn = document.getElementById('cookie-open');
-    let memoryConsent = null;
+    const CONSENT_KEY = 'consent_analytics';
+    const banner = document.getElementById('consent-banner');
+    const acceptBtn = document.getElementById('consent-accept');
+    const rejectBtn = document.getElementById('consent-reject');
+    const manageBtn = document.getElementById('consent-manage');
+    const openBtn = document.getElementById('consent-open');
 
     function loadGoogleAnalytics(){
       if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === 'G-XXXXXXXXXX') return;
@@ -830,31 +829,19 @@
     }
 
     function setConsent(value){
-      try {
-        localStorage.setItem(CONSENT_KEY, value);
-      } catch (e) {
-        memoryConsent = value;
-      }
+      localStorage.setItem(CONSENT_KEY, value);
     }
 
     function getConsent(){
-      try {
-        return localStorage.getItem(CONSENT_KEY);
-      } catch (e) {
-        return memoryConsent;
-      }
+      return localStorage.getItem(CONSENT_KEY);
     }
 
     function showBanner(){
-      if (!banner) return;
       banner.hidden = false;
-      banner.removeAttribute('hidden');
     }
 
     function hideBanner(){
-      if (!banner) return;
       banner.hidden = true;
-      banner.setAttribute('hidden', '');
     }
 
     function handleConsent(){
@@ -888,11 +875,7 @@
       showBanner();
     });
 
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', handleConsent, { once: true });
-    } else {
-      handleConsent();
-    }
+    handleConsent();
   </script>
 </body>
 </html>
