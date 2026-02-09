@@ -804,7 +804,7 @@
 
     // Cookie consent + Google Analytics
     const GA_MEASUREMENT_ID = 'G-PH141QN3ZR';
-    const CONSENT_KEY = 'cookie_consent';
+    const CONSENT_KEY = 'cookie_consent_zklidnime_to';
     const banner = document.getElementById('cookie-banner');
     const acceptBtn = document.getElementById('cookie-accept');
     const rejectBtn = document.getElementById('cookie-reject');
@@ -846,11 +846,15 @@
     }
 
     function showBanner(){
+      if (!banner) return;
       banner.hidden = false;
+      banner.removeAttribute('hidden');
     }
 
     function hideBanner(){
+      if (!banner) return;
       banner.hidden = true;
+      banner.setAttribute('hidden', '');
     }
 
     function handleConsent(){
