@@ -460,6 +460,70 @@
         display:none !important;
       }
     }
+
+    /* Cookie consent banner */
+    .cookie-banner{
+      position:fixed;
+      left:16px;
+      right:16px;
+      bottom:16px;
+      z-index:1000;
+      background:#fff;
+      color:var(--fg);
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+    }
+    .cookie-banner[hidden]{
+      display:none !important;
+    }
+    .cookie-banner p{
+      margin:0;
+      font-size:.95rem;
+      color:var(--fg);
+    }
+    .cookie-actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .cookie-btn{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--beige);
+      color:var(--fg);
+      cursor:pointer;
+      font-weight:600;
+      font-size:.95rem;
+    }
+    .cookie-btn.primary{
+      background:var(--accent);
+      color:var(--accent-contrast);
+      border-color:color-mix(in oklab,var(--accent),#000 12%);
+    }
+    .cookie-manage{
+      color:var(--muted);
+      font-size:.85rem;
+      text-decoration:underline;
+      background:none;
+      border:none;
+      padding:0;
+      cursor:pointer;
+      align-self:flex-start;
+    }
+    @media (min-width:760px){
+      .cookie-banner{
+        left:auto;
+        right:24px;
+        bottom:24px;
+        max-width:520px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -654,13 +718,26 @@
     <i class="fa-solid fa-arrow-up"></i>
   </button>
 
+  <div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Nastavení cookies" hidden>
+    <p>
+      Používáme cookies pouze pro anonymní statistiky návštěvnosti (Google Analytics).
+      Cookies se uloží až po vašem souhlasu.
+    </p>
+    <div class="cookie-actions">
+      <button id="cookie-accept" class="cookie-btn primary" type="button">Povolit</button>
+      <button id="cookie-reject" class="cookie-btn" type="button">Odmítnout</button>
+    </div>
+    <button id="cookie-manage" class="cookie-manage" type="button">Upravit souhlas</button>
+  </div>
+
   <footer>
     <div class="container">
       <div style="display: flex; align-items: center; gap: 12px; justify-content: center; flex-wrap: wrap;">
         <img src="assets/img/eu-funded-logo.png" style="height: 32px;" alt="EU funded logo" />
         <div>
           © <span id="y"></span> Zklidníme to <br />
-          Tento web je úmyslně minimalistický: žádné cookies, žádný tracking, žádné rozptylování.
+          Tento web je úmyslně minimalistický: žádné cookies bez souhlasu, žádný tracking bez vašeho svolení.
+          <button id="cookie-open" class="cookie-manage" type="button">Upravit souhlas s cookies</button>
         </div>
       </div>
     </div>
@@ -724,6 +801,81 @@
     backToTopBtn?.addEventListener('click', () => {
       window.scrollTo({top: 0, behavior: 'smooth'});
     });
+
+    // Cookie consent + Google Analytics
+    const GA_MEASUREMENT_ID = 'G-PH141QN3ZR';
+    const CONSENT_KEY = 'cookie_consent';
+    const banner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('cookie-accept');
+    const rejectBtn = document.getElementById('cookie-reject');
+    const manageBtn = document.getElementById('cookie-manage');
+    const openBtn = document.getElementById('cookie-open');
+
+    function loadGoogleAnalytics(){
+      if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === 'G-XXXXXXXXXX') return;
+      if (window.gtagLoaded) return;
+      window.gtagLoaded = true;
+
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+      document.head.appendChild(script);
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){window.dataLayer.push(arguments);}
+      window.gtag = window.gtag || gtag;
+      gtag('js', new Date());
+      gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
+    }
+
+    function setConsent(value){
+      localStorage.setItem(CONSENT_KEY, value);
+    }
+
+    function getConsent(){
+      return localStorage.getItem(CONSENT_KEY);
+    }
+
+    function showBanner(){
+      banner.hidden = false;
+    }
+
+    function hideBanner(){
+      banner.hidden = true;
+    }
+
+    function handleConsent(){
+      const consent = getConsent();
+      if (consent === 'accepted'){
+        hideBanner();
+        loadGoogleAnalytics();
+      } else if (consent === 'rejected'){
+        hideBanner();
+      } else {
+        showBanner();
+      }
+    }
+
+    acceptBtn?.addEventListener('click', () => {
+      setConsent('accepted');
+      hideBanner();
+      loadGoogleAnalytics();
+    });
+
+    rejectBtn?.addEventListener('click', () => {
+      setConsent('rejected');
+      hideBanner();
+    });
+
+    manageBtn?.addEventListener('click', () => {
+      showBanner();
+    });
+
+    openBtn?.addEventListener('click', () => {
+      showBanner();
+    });
+
+    handleConsent();
   </script>
 </body>
 </html>
