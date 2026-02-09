@@ -810,6 +810,7 @@
     const rejectBtn = document.getElementById('cookie-reject');
     const manageBtn = document.getElementById('cookie-manage');
     const openBtn = document.getElementById('cookie-open');
+    let memoryConsent = null;
 
     function loadGoogleAnalytics(){
       if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === 'G-XXXXXXXXXX') return;
@@ -829,11 +830,19 @@
     }
 
     function setConsent(value){
-      localStorage.setItem(CONSENT_KEY, value);
+      try {
+        localStorage.setItem(CONSENT_KEY, value);
+      } catch (e) {
+        memoryConsent = value;
+      }
     }
 
     function getConsent(){
-      return localStorage.getItem(CONSENT_KEY);
+      try {
+        return localStorage.getItem(CONSENT_KEY);
+      } catch (e) {
+        return memoryConsent;
+      }
     }
 
     function showBanner(){
@@ -875,7 +884,11 @@
       showBanner();
     });
 
-    handleConsent();
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', handleConsent, { once: true });
+    } else {
+      handleConsent();
+    }
   </script>
 </body>
 </html>
