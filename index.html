@@ -4,9 +4,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Zklidníme to – prostor pro klid a setkávání</title>
-  <meta name="description" content="Stručné představení malé organizace, informace o činnosti a přihlášky na akce přes Luma." />
+  <meta name="description" content="Organizace pořádající pravidelná večerní setkání v Brně zaměřená na zklidnění, zamyšlení a sdílení ve společnosti druhých. Prostor pro meditaci, mindfulness a osobní rozvoj." />
   <meta property="og:title" content="Zklidníme to – prostor pro klid a setkávání" />
-  <meta property="og:description" content="Stručné představení malé organizace, informace o činnosti a přihlášky na akce přes Luma." />
+  <meta property="og:description" content="Organizace pořádající pravidelná večerní setkání v Brně zaměřená na zklidnění, zamyšlení a sdílení ve společnosti druhých. Prostor pro meditaci, mindfulness a osobní rozvoj." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.zklidnimeto.cz/" />
   <meta property="og:image" content="https://www.zklidnimeto.cz/assets/img/web-app-manifest-512x512.png" />
@@ -15,7 +15,10 @@
   <meta name="color-scheme" content="light dark" />
   <meta name="apple-mobile-web-app-title" content="Zklidnime to" />
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://www.zklidnimeto.cz/" />
   
+  <link rel="preconnect" href="https://zklidnimeto.goatcounter.com" />
+  <link rel="preconnect" href="https://gc.zgo.at" />
   <link href="/assets/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
   <link href="/assets/fontawesome/css/brands.min.css" rel="stylesheet" />
   <link href="/assets/fontawesome/css/solid.min.css" rel="stylesheet" />
@@ -25,6 +28,53 @@
   <link rel="manifest" href="/site.webmanifest" />
 
   <script data-goatcounter="https://zklidnimeto.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Zklidníme to",
+    "url": "https://www.zklidnimeto.cz/",
+    "logo": "https://www.zklidnimeto.cz/assets/img/web-app-manifest-512x512.png",
+    "description": "Organizace pořádající pravidelná večerní setkání v Brně zaměřená na zklidnění, zamyšlení a sdílení ve společnosti druhých. Prostor pro meditaci, mindfulness a osobní rozvoj.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Brno",
+      "addressCountry": "CZ"
+    },
+    "email": "info@zklidnimeto.cz",
+    "sameAs": [
+      "https://www.instagram.com/zklidnime_to",
+      "https://www.facebook.com/profile.php?id=61581057479775",
+      "https://luma.com/user/zklidnimeto"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "Večerní setkání pro zklidnění a zamyšlení",
+    "description": "Pravidelná večerní setkání v Brně pro 5-10 lidí. Setkání zahrnuje zklidnění, sdílení v kruhu, čas na zamyšlení a závěrečnou relaxaci. Vhodné pro každého, kdo hledá prostor pro klid a autentické setkávání.",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Brno",
+        "addressCountry": "CZ"
+      }
+    },
+    "organizer": {
+      "@type": "Organization",
+      "name": "Zklidníme to",
+      "url": "https://www.zklidnimeto.cz/"
+    },
+    "isAccessibleForFree": true,
+    "url": "https://luma.com/user/zklidnimeto"
+  }
+  </script>
 
   <style>
     :root{
@@ -735,16 +785,14 @@
       <button id="consent-accept" class="consent-btn primary" type="button">Povolit</button>
       <button id="consent-reject" class="consent-btn" type="button">Odmítnout</button>
     </div>
-    <button id="consent-manage" class="consent-manage" type="button">Upravit souhlas</button>
   </div>
 
   <footer>
     <div class="container">
       <div style="display: flex; align-items: center; gap: 12px; justify-content: center; flex-wrap: wrap;">
-        <img src="assets/img/eu-funded-logo.png" style="height: 32px;" alt="EU funded logo" />
+        <img src="assets/img/eu-funded-logo.png" style="height: 32px;" alt="Financováno Evropskou unií" loading="lazy" />
         <div>
           © <span id="y"></span> Zklidníme to <br />
-          Tento web je úmyslně minimalistický: žádné cookies bez souhlasu, žádný tracking bez vašeho svolení.
           <button id="consent-open" class="consent-manage" type="button">Upravit souhlas s cookies</button>
         </div>
       </div>
@@ -816,7 +864,6 @@
     const banner = document.getElementById('consent-banner');
     const acceptBtn = document.getElementById('consent-accept');
     const rejectBtn = document.getElementById('consent-reject');
-    const manageBtn = document.getElementById('consent-manage');
     const openBtn = document.getElementById('consent-open');
 
     function loadGoogleAnalytics(){
@@ -873,10 +920,6 @@
     rejectBtn?.addEventListener('click', () => {
       setConsent('rejected');
       hideBanner();
-    });
-
-    manageBtn?.addEventListener('click', () => {
-      showBanner();
     });
 
     openBtn?.addEventListener('click', () => {
