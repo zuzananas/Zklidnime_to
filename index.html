@@ -22,6 +22,7 @@
   <link href="/assets/fontawesome/css/fontawesome.min.css" rel="stylesheet" />
   <link href="/assets/fontawesome/css/brands.min.css" rel="stylesheet" />
   <link href="/assets/fontawesome/css/solid.min.css" rel="stylesheet" />
+  <link href="/assets/css/style.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="/assets/img/favicon-96x96.png" sizes="96x96" />
   <link rel="shortcut icon" href="/assets/img/favicon.ico" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/apple-touch-icon.png" />
@@ -77,122 +78,7 @@
   </script>
 
   <style>
-    :root{
-      --bg:#fcfcfc;
-      --fg:#0f172a;
-      --muted:#5b5b58;
-      --accent:#d39b3c;
-      --accent-original: #3f3a2f;
-      --accent-contrast:#ffffff;
-      --border:#e6e2da;
-      --beige:#f7f3ed;
-      --shadow:0 10px 36px rgba(0,0,0,.06);
-      --max:1200px;
-      --bp:700px;
-    }
-
-    *{box-sizing:border-box}
-    html,body{max-width:100%;overflow-x:hidden}
-    html{scroll-behavior:smooth;}
-    body{
-      margin:0;background:var(--bg);color:var(--fg);
-      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
-      line-height:1.65;letter-spacing:.01em
-    }
-    a{color:inherit;text-decoration:underline;}
-    h1,h2{color:inherit}
-    .container{max-width:var(--max);margin:0 auto;padding:0 24px}
-
-    /* kam se má zarovnat nadpis při kliknutí na navigaci */
-    h2[id]{scroll-margin-top:40px;}
-
-    /* HLAVIČKA */
-    header{
-      background:var(--beige);
-      border-bottom:none; /* pokud chceš linku pod hlavičkou, dej 1px solid var(--border) */
-    }
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:7px 24px;
-    }
-
-    .brand{
-      padding: 10px 0;
-    }
-
-    /* desktop menu odkazy */
-    .navlinks{
-      display:flex;
-      gap:16px;
-      font-size:.95rem;
-    }
-    .navlinks a{
-      padding:8px 0;
-      text-decoration:none;
-    }
-    .navlinks a:focus-visible{
-      outline:2px solid #b6b0a6;
-      outline-offset:2px;
-    }
-
-    /* hamburger tlačítko (mobil) */
-    .menu-toggle{
-      display:none;
-      flex-direction:column;
-      justify-content:center;
-      gap:4px;
-      width: 28px;
-      height:28px;
-      border:none;
-      background:transparent;
-      cursor:pointer;
-      padding:0;
-    }
-    .menu-toggle span{
-      display:block;
-      width:100%;
-      height:2px;
-      background-color:var(--fg);
-      border-radius:2px;
-      transition:transform .25s ease, opacity .25s ease;
-    }
-    .menu-toggle[aria-expanded="true"] span:nth-child(1){
-      transform:translateY(6px) rotate(45deg);
-    }
-    .menu-toggle[aria-expanded="true"] span:nth-child(2){
-      opacity:0;
-    }
-    .menu-toggle[aria-expanded="true"] span:nth-child(3){
-      transform:translateY(-6px) rotate(-45deg);
-    }
-
-    /* mobilní rozbalovací panel */
-    .mobile-wrap{
-      background:var(--beige);
-      border-bottom:1px solid var(--border);
-    }
-    .mobile-menu{
-      display:none;
-      max-height:0;
-      overflow:hidden;
-      transition:max-height .25s ease;
-      font-size:1rem;
-    }
-    .mobile-menu a{
-      display:block;
-      padding:14px 24px;
-      text-decoration:none;
-      border-top:1px solid var(--border);
-    }
-    .mobile-menu.open{
-      display:block;
-      max-height:260px;
-    }
-
-    /* HERO (horní sekce s fotkou) */
+    /* Index page: hero, FAQ, contact */
     .hero-wrap{
       position:relative;
       isolation:isolate;
@@ -242,7 +128,7 @@
     .eyebrow{
       text-transform:uppercase;
       letter-spacing:.22em;
-      font-size:.8rem;
+      font-size:clamp(0.4rem, 2.5vw, 0.8rem);
       opacity:.95;
       color:#fff;
       text-shadow: 0 1px 2px rgba(0,0,0,.4), 0 0 24px rgba(0,0,0,.25);
@@ -279,26 +165,6 @@
       z-index:1;
     }
 
-    /* OBECNÉ SEKCE POD HERO */
-    section{
-      padding:40px 0 64px;
-      border-top:1px solid var(--border);
-      background:var(--bg);
-      color:var(--fg);
-    }
-    section.alt{
-      background:var(--beige);
-      border-top:0;
-    }
-
-    h2{
-      font-size:22px;
-      margin:0 0 12px;
-      color:var(--fg);
-      font-weight:600;
-      line-height:1.3;
-    }
-    p{margin:0 0 12px}
     .grid{
       display:grid;
       gap:16px
@@ -307,13 +173,6 @@
       .grid-2{
         grid-template-columns:1fr 1fr
       }
-    }
-    .card{
-      border:1px solid var(--border);
-      border-radius:16px;
-      padding:18px;
-      background:#fff;
-      box-shadow:var(--shadow)
     }
 
     /* FAQ SEKCE */
@@ -412,82 +271,11 @@
       color:inherit;
     }
 
-    footer{
-      border-top:1px solid var(--border);
-      padding:28px 0 40px;
-      color:var(--muted);
-      text-align:left;
-      background:var(--bg);
-      font-size:.9rem;
-      line-height:1.4;
-    }
-
-    img,video{
-      max-width:100%;
-      height:auto;
-      display:block
-    }
-    :where(h1,h2,h3,p,li,a){
-      overflow-wrap:break-word;
-      hyphens:auto
-    }
-
-    /* Back to top button */
-    .back-to-top{
-      display:none;
-      position:fixed;
-      bottom:24px;
-      right:24px;
-      width:48px;
-      height:48px;
-      background:var(--accent);
-      color:var(--accent-contrast);
-      border:none;
-      border-radius:8px;
-      cursor:pointer;
-      font-size:1.2rem;
-      z-index:999;
-      box-shadow:var(--shadow);
-      transition:opacity 0.3s ease, transform 0.3s ease;
-      align-items:center;
-      justify-content:center;
-    }
-    .back-to-top.show{
-      display:flex;
-    }
-    .back-to-top:hover{
-      transform:translateY(-3px);
-      box-shadow:0 14px 40px rgba(0,0,0,.1);
-    }
-    .back-to-top:focus-visible{
-      outline:2px solid #b6b0a6;
-      outline-offset:2px;
-    }
-
-    /* MOBIL */
+    /* Index: mobilní úpravy pro hero */
     @media (max-width:700px){
-      .back-to-top{
-        bottom:20px;
-        right:20px;
-        width:44px;
-        height:44px;
-        font-size:1.1rem;
+      .eyebrow{
+        white-space:nowrap;
       }
-      .navlinks{display:none;}
-      .menu-toggle{display:flex;}
-
-      .nav{
-        padding:12px 20px;
-      }
-      .brand{
-        font-size:1rem;
-        font-weight:600;
-      }
-
-      .container{
-        padding:0 18px;
-      }
-
       .hero{
         padding:72px 0 36px;
       }
@@ -499,89 +287,6 @@
         font-size:1rem;
         line-height:1.5;
       }
-
-      section{
-        padding:48px 0;
-      }
-
-      header{
-        background:var(--beige);
-        border-bottom:none; /* na mobilu taky žádná tvrdá linka */
-      }
-      .mobile-wrap{
-        background:var(--beige);
-        border-bottom:1px solid var(--border);
-      }
-    }
-
-    @media (min-width:701px){
-      .back-to-top{
-        display:none !important;
-      }
-    }
-
-    /* Consent banner */
-    .consent-banner{
-      position:fixed;
-      left:16px;
-      right:16px;
-      bottom:16px;
-      z-index:1000;
-      background:#fff;
-      color:var(--fg);
-      border:1px solid var(--border);
-      border-radius:16px;
-      box-shadow:var(--shadow);
-      padding:16px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-    }
-    .consent-banner[hidden]{
-      display:none !important;
-    }
-    .consent-banner p{
-      margin:0;
-      font-size:.95rem;
-      color:var(--fg);
-    }
-    .consent-actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-    .consent-btn{
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:var(--beige);
-      color:var(--fg);
-      cursor:pointer;
-      font-weight:600;
-      font-size:.95rem;
-    }
-    .consent-btn.primary{
-      background:var(--accent);
-      color:var(--accent-contrast);
-      border-color:color-mix(in oklab,var(--accent),#000 12%);
-    }
-    .consent-manage{
-      color:var(--muted);
-      font-size:.85rem;
-      text-decoration:underline;
-      background:none;
-      border:none;
-      padding:0;
-      cursor:pointer;
-      align-self:flex-start;
-    }
-    @media (min-width:760px){
-      .consent-banner{
-        left:auto;
-        right:24px;
-        bottom:24px;
-        max-width:520px;
-      }
     }
   </style>
 </head>
@@ -589,7 +294,9 @@
   <header>
     <div class="container nav">
       <div class="brand">
-        <img src="/assets/img/name-logo.png" alt="Zklidníme to" style="height: 24px; width: auto;" />
+        <a href="index.html" aria-label="Zklidníme to – úvodní stránka">
+          <img src="/assets/img/name-logo.png" alt="Zklidníme to" style="height: 24px; width: auto;" />
+        </a>
       </div>
 
       <!-- hamburger (mobil) -->
@@ -603,6 +310,7 @@
         <a href="#akce-title">Akce</a>
         <a href="#faq-title">FAQ</a>
         <a href="#kontakt-title">Kontakt</a>
+        <a href="o-projektu.html" class="nav-page-link">O projektu</a>
       </nav>
     </div>
 
@@ -613,6 +321,7 @@
         <a href="#akce-title" class="m-link">Akce</a>
         <a href="#faq-title" class="m-link">FAQ</a>
         <a href="#kontakt-title" class="m-link">Kontakt</a>
+        <a href="o-projektu.html" class="m-link nav-page-link">O projektu</a>
       </nav>
     </div>
   </header>
@@ -697,7 +406,7 @@
         </button>
         <div id="faq-answer-4" class="faq-answer">
           <p>
-            Přihlašování na na še akce probíhá přes platformu Luma. Jdi na náš profil na <a href="https://luma.com/user/zklidnimeto" target="_blank" rel="noopener">Luma</a>, kde najdeš aktuální termíny a budeš se moci zaregistrovat.
+            Přihlašování na naše akce probíhá přes platformu Luma. Jdi na náš profil na <a href="https://luma.com/user/zklidnimeto" target="_blank" rel="noopener">Luma</a>, kde najdeš aktuální termíny a budeš se moci zaregistrovat.
           </p>
         </div>
       </div>
@@ -802,36 +511,9 @@
     </div>
   </footer>
 
+  <script src="/assets/js/script.js"></script>
   <script>
-    // Rok ve footeru
-    document.getElementById('y').textContent = new Date().getFullYear();
-
-    // Mobilní menu toggle
-    const toggle = document.querySelector('.menu-toggle');
-    const mnav = document.getElementById('mobile-menu');
-
-    function closeMenu(){
-      mnav.classList.remove('open');
-      toggle.setAttribute('aria-expanded','false');
-    }
-
-    toggle?.addEventListener('click', () => {
-      const willOpen = !mnav.classList.contains('open');
-      mnav.classList.toggle('open', willOpen);
-      toggle.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
-    });
-
-    // Zavři menu po kliknutí na odkaz
-    mnav?.querySelectorAll('.m-link').forEach(a => {
-      a.addEventListener('click', closeMenu);
-    });
-
-    // Když přejdu nad breakpoint, menu zavři
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 700) closeMenu();
-    });
-
-    // FAQ accordion
+    // Index page: FAQ accordion
     document.querySelectorAll('.faq-question').forEach(button => {
       button.addEventListener('click', () => {
         const isExpanded = button.getAttribute('aria-expanded') === 'true';
@@ -847,89 +529,6 @@
         }
       });
     });
-
-    // Back to top button
-    const backToTopBtn = document.querySelector('.back-to-top');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        backToTopBtn.classList.add('show');
-      } else {
-        backToTopBtn.classList.remove('show');
-      }
-    });
-    backToTopBtn?.addEventListener('click', () => {
-      window.scrollTo({top: 0, behavior: 'smooth'});
-    });
-
-    // Cookie consent + Google Analytics
-    const GA_MEASUREMENT_ID = 'G-PH141QN3ZR';
-    const CONSENT_KEY = 'consent_analytics';
-    const banner = document.getElementById('consent-banner');
-    const acceptBtn = document.getElementById('consent-accept');
-    const rejectBtn = document.getElementById('consent-reject');
-    const openBtn = document.getElementById('consent-open');
-
-    function loadGoogleAnalytics(){
-      if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === 'G-XXXXXXXXXX') return;
-      if (window.gtagLoaded) return;
-      window.gtagLoaded = true;
-
-      const script = document.createElement('script');
-      script.async = true;
-      script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-      document.head.appendChild(script);
-
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){window.dataLayer.push(arguments);}
-      window.gtag = window.gtag || gtag;
-      gtag('js', new Date());
-      gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
-    }
-
-    function setConsent(value){
-      localStorage.setItem(CONSENT_KEY, value);
-    }
-
-    function getConsent(){
-      return localStorage.getItem(CONSENT_KEY);
-    }
-
-    function showBanner(){
-      banner.hidden = false;
-    }
-
-    function hideBanner(){
-      banner.hidden = true;
-    }
-
-    function handleConsent(){
-      const consent = getConsent();
-      if (consent === 'accepted'){
-        hideBanner();
-        loadGoogleAnalytics();
-      } else if (consent === 'rejected'){
-        hideBanner();
-      } else {
-        showBanner();
-      }
-    }
-
-    acceptBtn?.addEventListener('click', () => {
-      setConsent('accepted');
-      hideBanner();
-      loadGoogleAnalytics();
-    });
-
-    rejectBtn?.addEventListener('click', () => {
-      setConsent('rejected');
-      hideBanner();
-    });
-
-    openBtn?.addEventListener('click', () => {
-      showBanner();
-    });
-
-    handleConsent();
   </script>
 </body>
 </html>
