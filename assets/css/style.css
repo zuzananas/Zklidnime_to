@@ -59,6 +59,11 @@ header{
   padding:8px 0;
   text-decoration:none;
 }
+.navlinks a:hover{
+  text-decoration:underline;
+  text-underline-offset:4px;
+  text-decoration-thickness:1px;
+}
 .navlinks a.nav-page-link{
   border-left:1px solid var(--border);
   padding-left:16px;
@@ -188,7 +193,7 @@ img,video{
   width:48px;
   height:48px;
   background:var(--accent);
-  color:var(--on-accent);
+  color:var(--accent-contrast);
   border:none;
   border-radius:8px;
   cursor:pointer;
@@ -253,7 +258,7 @@ img,video{
 }
 .consent-btn.primary{
   background:var(--accent);
-  color:var(--on-accent);
+  color:var(--accent-contrast);
   border-color:color-mix(in oklab,var(--accent),#000 12%);
 }
 .consent-btn:focus-visible{

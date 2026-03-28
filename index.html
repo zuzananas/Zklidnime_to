@@ -163,6 +163,15 @@
       line-height:1.3;
       position:relative;
       z-index:1;
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .cta:hover{
+      transform:translateY(-1px);
+      box-shadow:0 12px 40px rgba(0,0,0,.1);
+    }
+    .cta:focus-visible{
+      outline:2px solid #b6b0a6;
+      outline-offset:3px;
     }
 
     .grid{
@@ -179,7 +188,7 @@
     .meeting-parts{
       margin-top:20px;
       padding:22px 18px 26px;
-      background:#f7f7f7;
+      background:var(--beige);
       border-radius:16px;
     }
     .meeting-parts__title{
@@ -217,7 +226,7 @@
       width:44px;
       height:44px;
       border-radius:50%;
-      background:#ececec;
+      background:color-mix(in oklab,var(--beige),var(--fg) 8%);
       display:flex;
       align-items:center;
       justify-content:center;
@@ -290,7 +299,7 @@
       overflow:hidden;
       transition:max-height 0.4s ease;
       background:#fff;
-      padding:0 18px 0px;
+      padding:0 18px;
     }
     .faq-answer.open{
       max-height:500px;
@@ -462,8 +471,7 @@
       font-style:normal;
       letter-spacing:.02em;
       text-transform:none;
-      color:var(--muted);
-      opacity:0.88;
+      color:color-mix(in oklab,var(--muted),var(--fg) 30%);
     }
     .reviews-controls{
       display:flex;
@@ -850,8 +858,6 @@
             <span>Facebook</span>
           </a>
         </div>
-        
-        <p style="color:var(--muted); margin-top:20px;"></p>
       </div>
     </div>
   </section>
