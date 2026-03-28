@@ -175,6 +175,73 @@
       }
     }
 
+    /* Co děláme – části setkání (karty) */
+    .meeting-parts{
+      margin-top:20px;
+      padding:22px 18px 26px;
+      background:#f7f7f7;
+      border-radius:16px;
+    }
+    .meeting-parts__title{
+      margin:0 0 16px;
+      text-align:center;
+      font-size:clamp(1rem,2.2vw,1.15rem);
+      font-weight:600;
+      color:var(--fg);
+      line-height:1.3;
+    }
+    .meeting-parts__grid{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:14px;
+      max-width:880px;
+      margin:0 auto;
+    }
+    @media (min-width:560px){
+      .meeting-parts__grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:16px;
+      }
+    }
+    .meeting-part-card{
+      display:flex;
+      flex-direction:row;
+      align-items:center;
+      gap:14px;
+      padding:16px 18px;
+      background:#fff;
+      border-radius:14px;
+      box-shadow:0 6px 20px rgba(0,0,0,.06);
+    }
+    .meeting-part-card__icon-wrap{
+      width:44px;
+      height:44px;
+      border-radius:50%;
+      background:#ececec;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+    }
+    .meeting-part-card__icon-wrap .fa-solid{
+      font-size:1rem;
+      color:var(--fg);
+    }
+    .meeting-part-card__text{
+      margin:0;
+      flex:1;
+      min-width:0;
+    }
+    @media (max-width:559px){
+      .meeting-parts{
+        padding:18px 14px 22px;
+      }
+      .meeting-part-card{
+        padding:14px 14px;
+        gap:12px;
+      }
+    }
+
     /* FAQ SEKCE */
     #faq{
       border-top: 0;
@@ -549,14 +616,38 @@
         kdo si chce dopřát čas pro zklidnění a zamyšlení a zároveň by ho rád strávil ve společnosti dalších lidí.
         Setkáváme se v počtu 5 - 10 lidí a jedno setkání trvá 1,5 - 2 hodiny.
       </p>
-      <p>Každé setkání obsahuje tyto části:</p>
-      <ul>
-        <li>Krátké zklidnění</li>
-        <li>Prostor pro sdílení v kruhu</li>
-        <li>Čas na individuální zamyšlení s otázkami</li>
-        <li>Závěrečná relaxace</li>
-      </ul>
       <p>Účast na těchto setkáních je bezplatná, je potřeba si jen zarezervovat místo.</p>
+
+      <div class="meeting-parts" aria-labelledby="meeting-parts-title">
+        <h3 id="meeting-parts-title" class="meeting-parts__title">Každé setkání obsahuje tyto části:</h3>
+        <div class="meeting-parts__grid">
+          <div class="meeting-part-card">
+            <div class="meeting-part-card__icon-wrap" aria-hidden="true">
+              <i class="fa-solid fa-leaf"></i>
+            </div>
+            <p class="meeting-part-card__text">Krátké zklidnění</p>
+          </div>
+          <div class="meeting-part-card">
+            <div class="meeting-part-card__icon-wrap" aria-hidden="true">
+              <i class="fa-solid fa-comments"></i>
+            </div>
+            <p class="meeting-part-card__text">Prostor pro sdílení v kruhu</p>
+          </div>
+          <div class="meeting-part-card">
+            <div class="meeting-part-card__icon-wrap" aria-hidden="true">
+              <i class="fa-solid fa-lightbulb"></i>
+            </div>
+            <p class="meeting-part-card__text">Čas na individuální zamyšlení</p>
+          </div>
+          <div class="meeting-part-card">
+            <div class="meeting-part-card__icon-wrap" aria-hidden="true">
+              <i class="fa-solid fa-spa"></i>
+            </div>
+            <p class="meeting-part-card__text">Závěrečná relaxace</p>
+          </div>
+        </div>
+      </div>
+      
     </div>
   </section>
 
