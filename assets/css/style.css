@@ -169,7 +169,9 @@ img,video{
 }
 :where(h1,h2,h3,p,li,a){
   overflow-wrap:break-word;
-  hyphens:auto
+  hyphens:none;
+  -webkit-hyphens:none;
+  -ms-hyphens:none
 }
 
 /* Back to top button */

@@ -288,6 +288,209 @@
         line-height:1.5;
       }
     }
+
+    /* HODNOCENÍ – carousel (testimonial card style) */
+    #hodnoceni{
+      border-top:0;
+    }
+    .reviews-carousel{
+      position:relative;
+      margin-top:12px;
+      outline:none;
+    }
+    .reviews-carousel:focus-visible{
+      outline:2px solid #b6b0a6;
+      outline-offset:4px;
+      border-radius:24px;
+    }
+    .reviews-panel{
+      border-radius:22px;
+      border:1px solid var(--border);
+      background:color-mix(in oklab,var(--beige),var(--fg) 6%);
+      box-shadow:var(--shadow);
+      padding:16px 18px 12px;
+      max-width:min(100%,920px);
+      margin-left:auto;
+      margin-right:auto;
+    }
+    .reviews-viewport{
+      overflow-x:hidden;
+      overflow-y:visible;
+      border-radius:12px;
+      touch-action:pan-y;
+    }
+    .reviews-track{
+      display:flex;
+      align-items:stretch;
+      transition:transform 0.45s ease;
+    }
+    @media (prefers-reduced-motion: reduce){
+      .reviews-track{
+        transition:none;
+      }
+    }
+    .review-slide{
+      flex:0 0 100%;
+      min-width:0;
+      margin:0;
+      padding:2px 4px 6px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      box-sizing:border-box;
+      min-height:clamp(200px,38vh,340px);
+      text-align:center;
+      font-size:0.98rem;
+      line-height:1.5;
+      color:color-mix(in oklab,var(--fg),var(--muted) 18%);
+    }
+    .review-slide-body{
+      min-width:0;
+      width:100%;
+      max-width:68ch;
+      margin:0 auto;
+      text-align:center;
+    }
+    .review-avatar{
+      width:56px;
+      height:56px;
+      margin:0 auto 12px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      background:color-mix(in oklab,var(--bg),var(--beige) 45%);
+      border:2px solid color-mix(in oklab,var(--border),#fff 35%);
+      box-shadow:0 0 0 1px color-mix(in oklab,var(--border),transparent 20%);
+      flex-shrink:0;
+    }
+    .review-avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center;
+      border-radius:50%;
+      display:block;
+    }
+    .review-text{
+      font-weight:300;
+      font-style:italic;
+      max-width:none;
+      margin:0;
+      letter-spacing:.01em;
+    }
+    .review-text::before{
+      content:'\201E';
+    }
+    .review-text::after{
+      content:'\201D';
+    }
+    .review-attribution{
+      display:block;
+      margin-top:8px;
+      font-size:.68rem;
+      font-weight:400;
+      font-style:normal;
+      letter-spacing:.02em;
+      text-transform:none;
+      color:var(--muted);
+      opacity:0.88;
+    }
+    .reviews-controls{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+      margin-top:12px;
+      padding-top:2px;
+      flex-wrap:wrap;
+    }
+    @media (min-width:640px){
+      .review-slide{
+        padding:4px 8px 4px;
+        min-height:clamp(220px,36vh,360px);
+      }
+      .review-avatar{
+        width:58px;
+        height:58px;
+      }
+      .review-slide-body{
+        max-width:70ch;
+      }
+    }
+    .reviews-nav{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:42px;
+      height:42px;
+      padding:0;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:#fff;
+      color:var(--fg);
+      cursor:pointer;
+      font-size:0.95rem;
+      transition:none;
+    }
+    .reviews-nav:hover{
+      background:#fff;
+      border-color:color-mix(in oklab,var(--border),var(--fg) 12%);
+    }
+    .reviews-nav:active{
+      background:var(--accent);
+      color:var(--accent-contrast);
+      border-color:var(--accent);
+    }
+    .reviews-nav:focus-visible{
+      outline:2px solid #b6b0a6;
+      outline-offset:2px;
+    }
+    .reviews-nav:disabled{
+      opacity:0.35;
+      cursor:not-allowed;
+      background:color-mix(in oklab,var(--bg),var(--beige) 30%);
+      color:var(--fg);
+      border-color:var(--border);
+    }
+    .reviews-dots{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .reviews-dot{
+      width:9px;
+      height:9px;
+      padding:0;
+      border:none;
+      border-radius:999px;
+      background:color-mix(in oklab,var(--muted),var(--border) 40%);
+      opacity:0.55;
+      cursor:pointer;
+      transition:background 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    }
+    .reviews-dot[aria-current="true"]{
+      background:color-mix(in oklab,var(--fg),var(--muted) 15%);
+      opacity:1;
+      transform:scale(1.2);
+    }
+    .reviews-dot:focus-visible{
+      outline:2px solid #b6b0a6;
+      outline-offset:2px;
+    }
+    .reviews-status{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
   </style>
 </head>
 <body>
@@ -309,6 +512,7 @@
         <a href="#co-delame-title">Co děláme</a>
         <a href="#akce-title">Akce</a>
         <a href="#faq-title">FAQ</a>
+        <a href="#hodnoceni-title">Hodnocení</a>
         <a href="#kontakt-title">Kontakt</a>
         <a href="o-projektu.html" class="nav-page-link">O projektu</a>
       </nav>
@@ -320,6 +524,7 @@
         <a href="#co-delame-title" class="m-link">Co děláme</a>
         <a href="#akce-title" class="m-link">Akce</a>
         <a href="#faq-title" class="m-link">FAQ</a>
+        <a href="#hodnoceni-title" class="m-link">Hodnocení</a>
         <a href="#kontakt-title" class="m-link">Kontakt</a>
         <a href="o-projektu.html" class="m-link nav-page-link">O projektu</a>
       </nav>
@@ -458,6 +663,82 @@
 
   </section>
 
+  <section id="hodnoceni" class="alt" aria-labelledby="hodnoceni-title">
+    <div class="container">
+      <!-- <h2 id="hodnoceni-title">Zpětná vazba od lidí, kteří už setkání navštívili</h2> -->
+
+      <div class="reviews-carousel" data-reviews-carousel tabindex="0" aria-label="Hodnocení účastníků – šipkami nebo posunutím prstu doleva a doprava">
+        <p id="reviews-live" class="reviews-status" aria-live="polite"></p>
+        <div class="reviews-panel">
+          <div
+            class="reviews-viewport"
+            data-reviews-viewport
+            role="region"
+            aria-roledescription="karousel"
+            aria-labelledby="hodnoceni-title"
+          >
+            <div class="reviews-track" data-reviews-track>
+              <div class="review-slide" data-review-slide>
+                <div class="review-avatar" aria-hidden="true">
+                  <img src="assets/review-avatars/woman_4.png" alt="" width="56" height="56" loading="lazy" decoding="async" />
+                </div>
+                <div class="review-slide-body">
+                  <p class="review-text">Netušila jsem do čeho jít a přicházela s malou obavou, jestli mi tam bude příjemně a budu vůbec schopná mluvit. Atmosfera ale byla moc příjemná, když jsem nechtěla mluvit, protože byla nějaká otázka pro mne v danou chvíli moc citlivá, tak jsem nemusela a necítila se pod tlakem. Byl to moc fajn večer a ráda někdy přijdu zas. Děkuju! :)</p>
+                  <p class="review-attribution">— účastnice setkání</p>
+                </div>
+              </div>
+              <div class="review-slide" data-review-slide>
+                <div class="review-avatar" aria-hidden="true">
+                  <img src="assets/review-avatars/woman_2.png" alt="" width="56" height="56" loading="lazy" decoding="async" />
+                </div>
+                <div class="review-slide-body">
+                  <p class="review-text">Oceňuju citlivý a empatický přístup průvodkyně, které se podařilo v útulném prostředí navodit atmosféru plnou důvěry, tolik potřebnou pro pocit bezpečí k otevření mnohdy nelehkých témat a k projevení vlastní zranitelnosti. Strávit dvě hodiny v přítomném okamžiku, naslouchat a být ostatními viděn a slyšen bylo prostě jako zachumlat svou duši do načechrané peřiny.</p>
+                  <p class="review-attribution">— účastnice setkání</p>
+                </div>
+              </div>
+              <div class="review-slide" data-review-slide>
+                <div class="review-avatar" aria-hidden="true">
+                  <img src="assets/review-avatars/man_1.png" alt="" width="56" height="56" loading="lazy" decoding="async" />
+                </div>
+                <div class="review-slide-body">
+                  <p class="review-text">Akce byla moc fajn, v poslední době toho na mě je hodně a potřeboval jsem místo, kde se můžu otevřít ventilovat spoje pocity a zklidnit se, to bylo stoprocentně splněno :)</p>
+                  <p class="review-attribution">— účastník setkání</p>
+                </div>
+              </div>
+              <div class="review-slide" data-review-slide>
+                <div class="review-avatar" aria-hidden="true">
+                  <img src="assets/review-avatars/woman_3.png" alt="" width="56" height="56" loading="lazy" decoding="async" />
+                </div>
+                <div class="review-slide-body">
+                  <p class="review-text">Večerné stretnutie bolo pre mňa veľmi príjemné a cítila som počas celého večera bezpečne. Mne osobne veľmi vyhovoval menší počet účastníkov (6). Veľmi oceňujem vytvorenie rešpektujúcej atmosféry lektorkou. Pre mňa to bol priestor pre spomalenie, vlastné myšlienky a moc som sa tešila aj si užila záverečnú relaxáciu. Vďaka tomuto večeru som odchádzala uvoľnená, oddýchnutá a viac napojená sama na seba. Až ma prekvapilo, že stačí vlastne &quot;tak málo&quot;.</p>
+                  <p class="review-attribution">— účastnice setkání</p>
+                </div>
+              </div>
+              <div class="review-slide" data-review-slide>
+                <div class="review-avatar" aria-hidden="true">
+                  <img src="assets/review-avatars/woman_1.png" alt="" width="56" height="56" loading="lazy" decoding="async" />
+                </div>
+                <div class="review-slide-body">
+                  <p class="review-text">Setkání mi opravdu pomohlo. Cítila jsem se vyslyšená, v bezpečí a necítila jsem se sama</p>
+                  <p class="review-attribution">— účastnice setkání</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="reviews-controls">
+            <button type="button" class="reviews-nav reviews-prev" data-reviews-prev aria-label="Předchozí hodnocení">
+              <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+            </button>
+            <div class="reviews-dots" data-reviews-dots role="group" aria-label="Vybrat hodnocení"></div>
+            <button type="button" class="reviews-nav reviews-next" data-reviews-next aria-label="Další hodnocení">
+              <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="kontakt">
     <div class="container">
       <h2 id="kontakt-title">Kontakt</h2>
@@ -529,6 +810,228 @@
         }
       });
     });
+
+    // Reviews carousel (infinite loop via boundary clones)
+    (function () {
+      const root = document.querySelector('[data-reviews-carousel]');
+      if (!root) return;
+      const track = root.querySelector('[data-reviews-track]');
+      const viewport = root.querySelector('[data-reviews-viewport]');
+      const prevBtn = root.querySelector('[data-reviews-prev]');
+      const nextBtn = root.querySelector('[data-reviews-next]');
+      const dotsWrap = root.querySelector('[data-reviews-dots]');
+      const live = root.querySelector('#reviews-live');
+      if (!track || !viewport || !prevBtn || !nextBtn || !dotsWrap) return;
+
+      const originalSlides = Array.from(track.querySelectorAll('[data-review-slide]'));
+      const total = originalSlides.length;
+      if (total === 0) return;
+
+      const firstSlide = originalSlides[0];
+      const lastSlide = originalSlides[total - 1];
+      const cloneLast = lastSlide.cloneNode(true);
+      const cloneFirst = firstSlide.cloneNode(true);
+      [cloneLast, cloneFirst].forEach(function (node) {
+        node.setAttribute('data-carousel-clone', 'true');
+        node.removeAttribute('data-review-slide');
+        node.setAttribute('aria-hidden', 'true');
+      });
+      track.insertBefore(cloneLast, firstSlide);
+      track.appendChild(cloneFirst);
+
+      const prefersReduced =
+        typeof window.matchMedia === 'function' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      let pos = 1;
+      let isJumping = false;
+      let isSliding = false;
+      let hasAnnounced = false;
+
+      originalSlides.forEach(function (_, i) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'reviews-dot';
+        dot.setAttribute('aria-label', 'Hodnocení ' + (i + 1) + ' z ' + total);
+        dot.addEventListener('click', function () {
+          goToSlide(i);
+        });
+        dotsWrap.appendChild(dot);
+      });
+      const dots = dotsWrap.querySelectorAll('.reviews-dot');
+
+      function slideWidth() {
+        return viewport.clientWidth || 0;
+      }
+
+      function logicalFromPos(p) {
+        if (p === 0) return total - 1;
+        if (p === total + 1) return 0;
+        return p - 1;
+      }
+
+      function announce(idx) {
+        if (!live || !hasAnnounced) return;
+        live.textContent = 'Zobrazeno hodnocení ' + (idx + 1) + ' z ' + total + '.';
+      }
+
+      function syncAria() {
+        const idx = logicalFromPos(pos);
+        originalSlides.forEach(function (slide, i) {
+          slide.setAttribute('aria-hidden', i === idx ? 'false' : 'true');
+        });
+        dots.forEach(function (dot, i) {
+          dot.setAttribute('aria-current', i === idx ? 'true' : 'false');
+        });
+        announce(idx);
+      }
+
+      function applyTransform(animate) {
+        const w = slideWidth();
+        if (!animate || prefersReduced) {
+          track.style.transition = 'none';
+        } else {
+          track.style.transition = '';
+        }
+        track.style.transform = 'translateX(-' + pos * w + 'px)';
+        if (!animate || prefersReduced) {
+          void track.offsetHeight;
+          track.style.transition = prefersReduced ? 'none' : '';
+        }
+      }
+
+      function jumpAfterClone() {
+        if (pos === total + 1) {
+          isJumping = true;
+          pos = 1;
+          applyTransform(false);
+          isJumping = false;
+          syncAria();
+        } else if (pos === 0) {
+          isJumping = true;
+          pos = total;
+          applyTransform(false);
+          isJumping = false;
+          syncAria();
+        }
+      }
+
+      track.addEventListener('transitionend', function (e) {
+        if (e.target !== track || e.propertyName !== 'transform') return;
+        if (prefersReduced) return;
+        if (!isJumping) {
+          jumpAfterClone();
+        }
+        isSliding = false;
+      });
+
+      function goNext() {
+        hasAnnounced = true;
+        if (prefersReduced) {
+          pos = ((logicalFromPos(pos) + 1) % total) + 1;
+          applyTransform(false);
+          syncAria();
+          return;
+        }
+        if (isSliding) return;
+        isSliding = true;
+        pos++;
+        applyTransform(true);
+        syncAria();
+      }
+
+      function goPrev() {
+        hasAnnounced = true;
+        if (prefersReduced) {
+          pos = ((logicalFromPos(pos) - 1 + total) % total) + 1;
+          applyTransform(false);
+          syncAria();
+          return;
+        }
+        if (isSliding) return;
+        isSliding = true;
+        pos--;
+        applyTransform(true);
+        syncAria();
+      }
+
+      function goToSlide(i) {
+        hasAnnounced = true;
+        if (prefersReduced) {
+          pos = i + 1;
+          applyTransform(false);
+          syncAria();
+          return;
+        }
+        if (isSliding) return;
+        isSliding = true;
+        pos = i + 1;
+        applyTransform(true);
+        syncAria();
+      }
+
+      prevBtn.addEventListener('click', goPrev);
+      nextBtn.addEventListener('click', goNext);
+
+      if (viewport) {
+        var swipeStartX = null;
+        var swipeStartY = null;
+        viewport.addEventListener(
+          'touchstart',
+          function (e) {
+            if (e.touches.length !== 1) return;
+            swipeStartX = e.touches[0].clientX;
+            swipeStartY = e.touches[0].clientY;
+          },
+          { passive: true }
+        );
+        viewport.addEventListener(
+          'touchcancel',
+          function () {
+            swipeStartX = swipeStartY = null;
+          },
+          { passive: true }
+        );
+        viewport.addEventListener(
+          'touchend',
+          function (e) {
+            if (swipeStartX === null || swipeStartY === null) return;
+            var t = e.changedTouches[0];
+            var dx = t.clientX - swipeStartX;
+            var dy = t.clientY - swipeStartY;
+            swipeStartX = swipeStartY = null;
+            var threshold = 48;
+            if (Math.abs(dx) < threshold) return;
+            if (Math.abs(dx) < Math.abs(dy) * 0.85) return;
+            if (dx < 0) goNext();
+            else goPrev();
+          },
+          { passive: true }
+        );
+      }
+
+      root.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          goPrev();
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          goNext();
+        }
+      });
+
+      window.addEventListener('resize', function () {
+        isSliding = false;
+        applyTransform(false);
+      });
+
+      if (prefersReduced) {
+        track.style.transition = 'none';
+      }
+
+      applyTransform(false);
+      syncAria();
+    })();
   </script>
 </body>
 </html>
